@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": [ "static/.webassets-cache", "static/gen" ]
+		}
+	]
+}
