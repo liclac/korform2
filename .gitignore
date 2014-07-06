@@ -1,0 +1,8 @@
+*.pyc
+*.swp
+
+bower_components
+
+static/.webassets-cache
+static/gen
+
