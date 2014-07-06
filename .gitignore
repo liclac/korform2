@@ -1,9 +1,12 @@
 *.pyc
 static/.webassets-cache
 static/gen
+
+keys.py
 korform2.db
 
 bower_components
 
 *.swp
 *.sublime-workspace
+
