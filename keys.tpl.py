@@ -1,1 +1,6 @@
 SECRET_KEY='put something secret here'
+SECRET_KEY='another secret goes here'
+SECURITY_CONFIRM_SALT='a third one here'
+SECURITY_RESET_SALT='no reusing salts here'
+SECURITY_LOGIN_SALT='and no not forget to change any of them'
+SECURITY_REMEMBER_SALT='especially not this one'
