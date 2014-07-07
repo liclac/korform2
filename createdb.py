@@ -8,7 +8,7 @@ with app.test_request_context():
 	db.create_all()
 
 	# Create default roles
-	admin_role = user_datastore.create_role(name="Admin")
+	admin_role = user_datastore.create_role(name="Admin", description="Allowed to perform administrative tasks")
 
 	# Create a default admin account
 	admin_user = user_datastore.create_user(email='admin@localhost', password=encrypt_password('password'), active=True, confirmed_at=datetime.utcnow())

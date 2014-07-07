@@ -14,6 +14,9 @@ class Role(db.Model, RoleMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80), unique=True)
 	description = db.Column(db.String(255))
+	
+	def __str__(self):
+		return self.name
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +29,9 @@ class User(db.Model, UserMixin):
 	
 	children = db.relationship('Korist', backref='account', lazy='dynamic')
 	guardians = db.relationship('Guardian', backref='account', lazy='dynamic')
+	
+	def __str__(self):
+		return self.email
 
 
 
@@ -53,6 +59,15 @@ class Group(db.Model):
 	def __str__(self):
 		return self.code
 
+class Guardian(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	
+	first_name = db.Column(db.String(100))
+	last_name = db.Column(db.String(100))
+	phone = db.Column(db.String(15))
+	email = db.Column(db.String(255))
+
 class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -60,8 +75,8 @@ class Korist(db.Model):
 	active = db.Column(db.Boolean)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 	
-	first_name = db.Column(db.Text)
-	last_name = db.Column(db.Text)
+	first_name = db.Column(db.String(100))
+	last_name = db.Column(db.String(100))
 	
 	address_l1 = db.Column(db.Text)
 	address_l2 = db.Column(db.Text)
@@ -70,7 +85,7 @@ class Korist(db.Model):
 	
 	phone = db.Column(db.String(15))
 	mobile = db.Column(db.String(15))
-	email = db.Column(db.Text)
+	email = db.Column(db.String(255))
 	
 	birth_year = db.Column(db.Integer)
 	birth_month = db.Column(db.Integer)
@@ -84,15 +99,6 @@ class Korist(db.Model):
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
-
-class Guardian(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-	
-	first_name = db.Column(db.Text)
-	last_name = db.Column(db.Text)
-	phone = db.Column(db.Text)
-	email = db.Column(db.Text)
 
 class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
