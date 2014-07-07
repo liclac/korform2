@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+{% block content %}
+	<div class="list-group">
+		{% for korist in korists %}
+		<a class="list-group-item" href="{{ url_for('korist', id=korist.id) }}">
+			<strong>{{ korist.first_name }} {{ korist.last_name }}</strong>
+		</a>
+		{% endfor %}
+		<a class="list-group-item" href="{{ url_for('korist_add') }}">
+			{% if korists %}
+			<small>Lägg till</small>
+			{% else %}
+			<strong>Lägg till</strong>
+			{% endif %}
+		</a>
+	</div>
+{% endblock %}

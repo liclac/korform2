@@ -78,10 +78,8 @@ class Korist(db.Model):
 	first_name = db.Column(db.String(100), nullable=False)
 	last_name = db.Column(db.String(100), nullable=False)
 	
-	address_l1 = db.Column(db.Text, nullable=False)
-	address_l2 = db.Column(db.Text, nullable=False)
-	post_code = db.Column(db.String(5), nullable=False)
-	region = db.Column(db.Text, nullable=False)
+	address1 = db.Column(db.Text, nullable=False)
+	address2 = db.Column(db.Text)
 	
 	phone = db.Column(db.String(15), nullable=False)
 	mobile = db.Column(db.String(15))

@@ -1,16 +1,16 @@
-{% macro hform_print_label(field) %}
-	{{ field.label(class="col-sm-2 control-label", **kwargs) }}
-{% endmacro %}
+{% macro hform_print_label(field) -%}
+		{{ field.label(class="col-sm-2 control-label", **kwargs) }}
+{%- endmacro %}
 {% macro hform_print_field(field) %}{{ hform_print_fields([field], **kwargs) }}{% endmacro %}
 {% macro hform_print_fields(fields, helptext, autofocus=False) %}
-	<div class="col-sm-10">
-		{%- for field in fields %}
-		{% if field.errors %}<div class="has-errors">{% endif %}
-		{{ field(class="form-control", autofocus=(autofocus and loop.first), **kwargs) }}
-		{% if field.errors %}</div>{% endif %}
-		{%- endfor %}
-		{% if helptext %}<p class="help-block">{{ helptext }}</p>{% endif %}
-	</div>
+		<div class="col-sm-10">
+			{% for field in fields -%}
+			{% if field.errors %}<div class="has-error">{% endif %}
+			{{ field(class="form-control", autofocus=(autofocus and loop.first), **kwargs) }}
+			{%- if field.errors %}</div>{% endif -%}
+			{% endfor %}
+			{% if helptext %}<p class="help-block">{{ helptext }}</p>{% endif %}
+		</div>
 {% endmacro %}
 {% macro hform_group(label, field) %}{{ hform_group_multi(label, [field], **kwargs) }}{% endmacro %}
 {% macro hform_group_multi(label, fields) %}

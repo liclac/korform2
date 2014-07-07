@@ -6,7 +6,7 @@
 	{% assets 'css_all' %}<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />{% endassets %}
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -21,7 +21,7 @@
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				{% if current_user.is_authenticated() %}
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url_for('my_korists') }}">Korister</a></li>
+					<li><a href="{{ url_for('korists') }}">Korister</a></li>
 					<li><a href="{{ url_for('my_guardians') }}">Kontaktpersoner</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

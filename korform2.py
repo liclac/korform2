@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, render_template
+from flask import Flask, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
 from db import *
 from assets import assets
@@ -32,16 +32,39 @@ def index():
 
 @app.route('/korister/')
 @login_required
-def my_korists():
-	return render_template("my_korists.html")
+def korists():
+	korists = Korist.query.filter_by(account=current_user)
+	return render_template("korists.html", korists=korists)
 
 @app.route('/korister/add/', methods=['GET', 'POST'])
 @login_required
-def my_korists_add():
-	form = KoristForm()
+def korist_add():
+	korist = Korist(account=current_user)
+	form = KoristForm(obj=korist)
 	if form.validate_on_submit():
-		pass
-	return render_template("my_korists_form.html", form=form)
+		form.populate_obj(korist)
+		db.session.add(korist)
+		db.session.commit()
+		return redirect(url_for('korists'))
+	return render_template("korist_form.html", form=form)
+
+@app.route('/korister/<id>/')
+@login_required
+def korist(id):
+	korist = Korist.query.get(id)
+	return render_template("korist.html", korist=korist)
+
+@app.route('/korister/<id>/edit/', methods=['GET', 'POST'])
+@login_required
+def korist_edit(id):
+	korist = Korist.query.get(id)
+	form = KoristForm(obj=korist)
+	if form.validate_on_submit():
+		form.populate_obj(korist)
+		db.session.add(korist)
+		db.session.commit()
+		return redirect(url_for('korist', id=korist.id))
+	return render_template("korist_form.html", form=form)
 
 @app.route('/kontaktpersoner/')
 @login_required

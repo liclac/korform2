@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+{% import "_macros.html" as m %}
+{% block content %}
+	<form class="form-horizontal" action="." method="POST">
+		{{ form.hidden_tag() }}
+		
+		{{ m.hform_group("Förnamn*", form.first_name) }}
+		{{ m.hform_group("Efternamn*", form.last_name) }}
+		{{ m.hform_group("Födelsedag*", form.birthday, placeholder="ÅÅÅÅ-MM-DD") }}
+		
+		<hr />
+		
+		{{ m.hform_group("Address 1*", form.address1) }}
+		{{ m.hform_group("Address 2", form.address2, placeholder="(Om man bor på två ställen)") }}
+		
+		<hr />
+		
+		{{ m.hform_group("Telefonnummer*", form.phone) }}
+		{{ m.hform_group("Mobilnummer", form.mobile) }}
+		{{ m.hform_group("E-postaddress", form.email) }}
+		
+		<hr />
+		
+		<input type="submit" class="btn btn-default pull-right" value="Spara" />
+	</form>
+{% endblock %}
