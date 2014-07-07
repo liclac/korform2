@@ -1,6 +1,8 @@
 #!/usr/bin/env python
+import re
 from flask import Flask, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
+from jinja2 import evalcontextfilter, Markup, escape
 from db import *
 from assets import assets
 from admin import admin
@@ -18,6 +20,20 @@ admin.init_app(app)
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
+
+
+_paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
+@app.template_filter()
+@evalcontextfilter
+def nl2br(eval_ctx, value):
+	result = u'\n\n'.join(u'<p>%s</p>' % p.replace('\n', '<br>\n') \
+		for p in _paragraph_re.split(escape(value)))
+	if eval_ctx.autoescape:
+		result = Markup(result)
+	return result
+
+
+
 @app.context_processor
 def context_processor():
 	suffix_overrides = { 'message': 'info' }
@@ -25,6 +41,8 @@ def context_processor():
 		'alert_class_suffix_for_message_category':
 			lambda cat: suffix_overrides[cat] if cat in suffix_overrides else cat
 	}
+
+
 
 @app.route('/')
 def index():
@@ -68,8 +86,39 @@ def korist_edit(id):
 
 @app.route('/kontaktpersoner/')
 @login_required
-def my_guardians():
-	return render_template("my_guardians.html")
+def guardians():
+	guardians = Guardian.query.filter_by(account=current_user)
+	return render_template("guardians.html", guardians=guardians)
+
+@app.route('/kontaktpersoner/add/', methods=['GET', 'POST'])
+@login_required
+def guardian_add():
+	guardian = Guardian(account=current_user)
+	form = GuardianForm(obj=guardian)
+	if form.validate_on_submit():
+		form.populate_obj(guardian)
+		db.session.add(guardian)
+		db.session.commit()
+		return redirect(url_for('guardians'))
+	return render_template("guardian_form.html", form=form)
+
+@app.route('/kontaktpersoner/<id>/')
+@login_required
+def guardian(id):
+	guardian = Guardian.query.get(id)
+	return render_template("guardian.html", guardian=guardian)
+
+@app.route('/kontaktpersoner/<id>/edit/', methods=['GET', 'POST'])
+@login_required
+def guardian_edit(id):
+	guardian = Guardian.query.get(id)
+	form = GuardianForm(obj=guardian)
+	if form.validate_on_submit():
+		form.populate_obj(guardian)
+		db.session.add(guardian)
+		db.session.commit()
+		return redirect(url_for('guardian', id=guardian.id))
+	return render_template("guardian_form.html", form=form)
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0')

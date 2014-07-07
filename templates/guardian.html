@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% block content %}
+	<h1>
+		{{ guardian.first_name }} {{ guardian.last_name }}
+		<a class="btn btn-default pull-right" href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a>
+	</h1>
+	
+	<hr />
+	
+	<p>{{ guardian.comment|nl2br }}</p>
+	
+	<hr />
+	
+	<dl class="dl-horizontal">
+		{% if guardian.phone %}
+		<dt>Telefonnummer</dt>
+		<dd>{{ guardian.phone }}</dd>
+		{% endif %}
+		{% if guardian.email %}
+		<dt>E-postadress</dt>
+		<dd>{{ guardian.email }}</dd>
+		{% endif %}
+	</dl>
+{% endblock %}

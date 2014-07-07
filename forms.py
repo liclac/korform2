@@ -16,3 +16,7 @@ class KoristForm(ModelForm):
 		exclude = ['active']
 	
 	group = QuerySelectField(query_factory=lambda: Group.query.all())
+
+class GuardianForm(ModelForm):
+	class Meta:
+		model = Guardian
