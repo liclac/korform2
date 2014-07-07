@@ -1,8 +1,15 @@
 from flask.ext.wtf import Form
-from wtforms.ext.sqlalchemy.orm import model_form
+from wtforms_alchemy import model_form_factory
 from db import *
 
-GroupForm = model_form(Group, Form)
-KoristForm = model_form(Korist, Form)
-EventForm = model_form(Event, Form)
-OSAForm = model_form(OSA, Form)
+BaseModelForm = model_form_factory(Form)
+
+class ModelForm(BaseModelForm):
+	@classmethod
+	def get_session(self):
+		return db.session
+
+class KoristForm(ModelForm):
+	class Meta:
+		model = Korist
+		exclude = ['active']

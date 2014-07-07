@@ -87,9 +87,7 @@ class Korist(db.Model):
 	mobile = db.Column(db.String(15))
 	email = db.Column(db.String(255))
 	
-	birth_year = db.Column(db.Integer)
-	birth_month = db.Column(db.Integer)
-	birth_day = db.Column(db.Integer)
+	birthday = db.Column(db.Date)
 	
 	allergies = db.Column(db.Text)
 	other_info = db.Column(db.Text)
