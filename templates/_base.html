@@ -72,6 +72,12 @@
 		</div>
 	</nav>
 	<div class="container">
+		{% for category, message in get_flashed_messages(with_categories=true) %}
+		<div class="alert alert-{{ alert_class_suffix_for_message_category(category) }} alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			{{ message }}
+		</div>
+		{% endfor %}
 		{%- block content %}Oops, nothing here.{% endblock -%}
 	</div>
 	
