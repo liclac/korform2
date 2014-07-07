@@ -1,14 +1,10 @@
 #!/usr/bin/env python
-import os
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore
-from werkzeug.utils import secure_filename
 from assets import assets
 from db import *
 from forms import *
 from admin import admin
-
-ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config.from_object('config')
