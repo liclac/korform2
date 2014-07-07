@@ -50,9 +50,9 @@ class Group(db.Model):
 	
 	can_apply_to = db.Column(db.Boolean)
 	
-	sortcode = db.Column(db.String(10), unique=True)
-	code = db.Column(db.String(10), unique=True)
-	name = db.Column(db.String(100), unique=True)
+	sortcode = db.Column(db.String(10), unique=True, nullable=False)
+	code = db.Column(db.String(10), unique=True, nullable=False)
+	name = db.Column(db.String(100), unique=True, nullable=False)
 	
 	members = db.relationship('Korist', backref='group', lazy='dynamic')
 	
@@ -63,8 +63,8 @@ class Guardian(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	
-	first_name = db.Column(db.String(100))
-	last_name = db.Column(db.String(100))
+	first_name = db.Column(db.String(100), nullable=False)
+	last_name = db.Column(db.String(100), nullable=False)
 	phone = db.Column(db.String(15))
 	email = db.Column(db.String(255))
 
@@ -72,22 +72,22 @@ class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	
-	active = db.Column(db.Boolean)
+	active = db.Column(db.Boolean, default=True)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 	
-	first_name = db.Column(db.String(100))
-	last_name = db.Column(db.String(100))
+	first_name = db.Column(db.String(100), nullable=False)
+	last_name = db.Column(db.String(100), nullable=False)
 	
-	address_l1 = db.Column(db.Text)
-	address_l2 = db.Column(db.Text)
-	post_code = db.Column(db.String(5))
-	region = db.Column(db.Text)
+	address_l1 = db.Column(db.Text, nullable=False)
+	address_l2 = db.Column(db.Text, nullable=False)
+	post_code = db.Column(db.String(5), nullable=False)
+	region = db.Column(db.Text, nullable=False)
 	
-	phone = db.Column(db.String(15))
+	phone = db.Column(db.String(15), nullable=False)
 	mobile = db.Column(db.String(15))
 	email = db.Column(db.String(255))
 	
-	birthday = db.Column(db.Date)
+	birthday = db.Column(db.Date, nullable=False)
 	
 	allergies = db.Column(db.Text)
 	other_info = db.Column(db.Text)
@@ -101,7 +101,7 @@ class Korist(db.Model):
 class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
-	title = db.Column(db.Text)
+	title = db.Column(db.Text, nullable=False)
 	dateline = db.Column(db.Text)
 	description = db.Column(db.Text)
 	
@@ -114,6 +114,6 @@ class Event(db.Model):
 class OSA(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
-	osa = db.Column(db.Integer)
+	osa = db.Column(db.Integer, nullable=False)
 	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 	korist_id = db.Column(db.Integer, db.ForeignKey('korist.id'))
