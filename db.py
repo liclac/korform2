@@ -20,6 +20,8 @@ class Role(db.Model, RoleMixin):
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
+	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
+	
 	email = db.Column(db.String(255), unique=True)
 	password = db.Column(db.String(255))
 	active = db.Column(db.Boolean)
@@ -27,11 +29,16 @@ class User(db.Model, UserMixin):
 	
 	roles = db.relationship('Role', secondary=role__user, backref=db.backref('users', lazy='dynamic'))
 	
-	children = db.relationship('Korist', backref='account', lazy='dynamic')
-	guardians = db.relationship('Guardian', backref='account', lazy='dynamic')
-	
 	def __str__(self):
 		return self.email
+
+class Profile(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	
+	users = db.relationship('User', backref='profile', lazy='joined')
+	children = db.relationship('Korist', backref='profile', lazy='dynamic')
+	guardians = db.relationship('Guardian', backref='profile', lazy='dynamic')
+	
 
 
 
@@ -61,7 +68,7 @@ class Group(db.Model):
 
 class Guardian(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
 	
 	first_name = db.Column(db.String(100), nullable=False)
 	last_name = db.Column(db.String(100), nullable=False)
@@ -72,7 +79,7 @@ class Guardian(db.Model):
 
 class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
 	
 	active = db.Column(db.Boolean, default=True)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))

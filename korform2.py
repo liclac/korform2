@@ -17,7 +17,15 @@ db.init_app(app); db.app = app
 assets.init_app(app)
 admin.init_app(app)
 
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+
+
+class MyUserDatastore(SQLAlchemyUserDatastore):
+	def create_user(self, **kwargs):
+		if not 'profile' in kwargs:
+			kwargs['profile'] = Profile()
+		return super(SQLAlchemyUserDatastore, self).create_user(**kwargs)
+
+user_datastore = MyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
 
@@ -51,13 +59,13 @@ def index():
 @app.route('/korister/')
 @login_required
 def korists():
-	korists = Korist.query.filter_by(account=current_user)
+	korists = Korist.query.filter_by(profile=current_user.profile)
 	return render_template("korists.html", korists=korists)
 
 @app.route('/korister/add/', methods=['GET', 'POST'])
 @login_required
 def korist_add():
-	korist = Korist(account=current_user)
+	korist = Korist(profile=current_user.profile)
 	form = KoristForm(obj=korist)
 	if form.validate_on_submit():
 		form.populate_obj(korist)
@@ -87,13 +95,13 @@ def korist_edit(id):
 @app.route('/kontaktpersoner/')
 @login_required
 def guardians():
-	guardians = Guardian.query.filter_by(account=current_user)
+	guardians = Guardian.query.filter_by(profile=current_user.profile)
 	return render_template("guardians.html", guardians=guardians)
 
 @app.route('/kontaktpersoner/add/', methods=['GET', 'POST'])
 @login_required
 def guardian_add():
-	guardian = Guardian(account=current_user)
+	guardian = Guardian(profile=current_user.profile)
 	form = GuardianForm(obj=guardian)
 	if form.validate_on_submit():
 		form.populate_obj(guardian)
