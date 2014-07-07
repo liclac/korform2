@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 import os
 from flask import Flask, render_template, send_file
 from flask.ext.security import Security, SQLAlchemyUserDatastore

@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 from datetime import datetime
 from korform2 import db, user_datastore
 
