@@ -3,7 +3,7 @@
 	<div class="list-group">
 		{% for korist in korists %}
 		<a class="list-group-item" href="{{ url_for('korist', id=korist.id) }}">
-			<strong>{{ korist.first_name }} {{ korist.last_name }}</strong>
+			<strong>{{ korist.first_name }} {{ korist.last_name }}</strong> <span class="pull-right hidden-xs">{{ korist.group.code }}</span>
 		</a>
 		{% endfor %}
 		<a class="list-group-item" href="{{ url_for('korist_add') }}">

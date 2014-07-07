@@ -1,5 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms_alchemy import model_form_factory
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from db import *
 
 BaseModelForm = model_form_factory(Form)
@@ -13,3 +14,5 @@ class KoristForm(ModelForm):
 	class Meta:
 		model = Korist
 		exclude = ['active']
+	
+	group = QuerySelectField(query_factory=lambda: Group.query.all())
