@@ -20,6 +20,7 @@ class Role(db.Model, RoleMixin):
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
+	
 	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
 	
 	email = db.Column(db.String(255), unique=True)
@@ -38,6 +39,9 @@ class Profile(db.Model):
 	users = db.relationship('User', backref='profile', lazy='joined')
 	children = db.relationship('Korist', backref='profile', lazy='dynamic')
 	guardians = db.relationship('Guardian', backref='profile', lazy='dynamic')
+	
+	def __str__(self):
+		return 'Profile for %s' % (", ".join(u.email for u in self.users))
 	
 
 
@@ -63,6 +67,7 @@ class Group(db.Model):
 	
 	members = db.relationship('Korist', backref='group', lazy='dynamic')
 	
+	# Make it default to sorting by sortcode, rather than the pk (id)
 	__mapper_args__ = { 'order_by': sortcode }
 	
 	def __str__(self):
@@ -78,6 +83,9 @@ class Guardian(db.Model):
 	email = db.Column(db.String(255))
 	
 	comment = db.Column(db.Text)
+	
+	def __str__(self):
+		return "%s %s" % (self.first_name, self.last_name)
 
 class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -102,7 +110,7 @@ class Korist(db.Model):
 	other_info = db.Column(db.Text)
 	
 	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
-	osas = db.relationship('OSA', backref='korist', lazy='dynamic')
+	osas = db.relationship('OSA', backref=db.backref('korist', lazy='joined'), lazy='dynamic')
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
@@ -115,7 +123,7 @@ class Event(db.Model):
 	description = db.Column(db.Text)
 	
 	groups = db.relationship('Group', secondary=event__group, backref=db.backref('events', lazy='dynamic'))
-	osas = db.relationship('OSA', backref='event', lazy='dynamic')
+	osas = db.relationship('OSA', backref=db.backref('event', lazy='joined'), lazy='dynamic')
 	
 	def __str__(self):
 		return "%s (%s)" % (self.title, self.dateline)
@@ -126,3 +134,9 @@ class OSA(db.Model):
 	osa = db.Column(db.Integer, nullable=False)
 	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 	korist_id = db.Column(db.Integer, db.ForeignKey('korist.id'))
+	
+	def osa_str(self):
+		return ['Ja', 'Nej', 'Kanske'][self.osa]
+	
+	def __str__(self):
+		return "%s (%s)" % (self.event.title, self.osa_str())

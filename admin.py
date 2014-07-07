@@ -5,15 +5,18 @@ from db import *
 
 admin = Admin()
 
+class RoleModelView(ModelView):
+	form_overrides = { 'description': fields.TextAreaField }
+
 class UserModelView(ModelView):
 	column_exclude_list = ['password']
 	form_excluded_columns = ['password']
 
-class RoleModelView(ModelView):
-	form_overrides = { 'description': fields.TextAreaField }
+class ProfileModelView(ModelView):
+	column_list = ['users']
 
 class KoristModelView(ModelView):
-	column_list = ['group', 'first_name', 'last_name']
+	column_list = ['group', 'first_name', 'last_name', 'phone', 'mobile', 'email']
 	form_excluded_columns = ['osas']
 	form_overrides = {
 		'address_l1': fields.TextField,
@@ -22,12 +25,13 @@ class KoristModelView(ModelView):
 	}
 
 class GuardianModelView(ModelView):
-	pass
+	column_exclude_list = ['profile', 'comment']
 
 class GroupModelView(ModelView):
 	form_excluded_columns = ['members']
 
 class EventModelView(ModelView):
+	column_list = ['groups', 'title', 'dateline']
 	form_excluded_columns = ['osas']
 
 class OSAModelView(ModelView):
@@ -41,8 +45,9 @@ class OSAModelView(ModelView):
 		}
 	}
 
-admin.add_view(UserModelView(User, db.session, endpoint='user'))
 admin.add_view(RoleModelView(Role, db.session, endpoint='role'))
+admin.add_view(UserModelView(User, db.session, endpoint='user'))
+admin.add_view(ProfileModelView(Profile, db.session, endpoint='profile'))
 admin.add_view(GuardianModelView(Guardian, db.session, endpoint='guardian'))
 admin.add_view(KoristModelView(Korist, db.session, endpoint='korist'))
 admin.add_view(GroupModelView(Group, db.session, endpoint='group'))
