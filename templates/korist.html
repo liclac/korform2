@@ -4,20 +4,33 @@
 		{{ korist.first_name }} {{ korist.last_name }} <small>({{ korist.group.code }})</small>
 		<a class="btn btn-default pull-right" href="{{ url_for('korist_edit', id=korist.id) }}">Redigera</a>
 	</h1>
-	<hr />
 	
-	<p>{{ korist.address1 }}</p>
-	{% if korist.address2 %}<p>{{ korist.address2 }}</p>{% endif %}
+	{% if korist.other_info or korist.allergies %}<hr />{% endif %}
+	{% if korist.other_info %}
+	{{ korist.other_info|nl2br }}
+	{% endif %}
+	
+	{% if korist.allergies %}
+	{% if korist.other_info %}<br />{% endif %}
+	<h5>Allergier</h5>
+	{{ korist.allergies|nl2br }}
+	{% endif %}
+	
 	
 	<hr />
 	
 	<dl class="dl-horizontal">
+		<dt>Adress{% if korist.address2 %} 1{% endif %}</dt>
+		<dd>{{ korist.address1|nl2br }}</dd>
+		
 		<dt>Telefonnummer</dt>
 		<dd>{{ korist.phone }}</dd>
+		
 		{% if korist.mobile %}
 		<dt>Mobilnummer</dt>
 		<dd>{{ korist.mobile }}</dd>
 		{% endif %}
+		
 		{% if korist.email %}
 		<dt>E-postadress</dt>
 		<dd>{{ korist.email }}</dd>

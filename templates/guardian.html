@@ -5,9 +5,10 @@
 		<a class="btn btn-default pull-right" href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a>
 	</h1>
 	
+	{% if guardian.comment %}
 	<hr />
-	
 	<p>{{ guardian.comment|nl2br }}</p>
+	{% endif %}
 	
 	<hr />
 	
