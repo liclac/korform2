@@ -3,11 +3,11 @@
 {% block modal_content %}
 	<form class="login-form" action="{{ url_for_security('register') }}" method="POST">
 		{{ register_user_form.hidden_tag() }}
-		<div class="input-group">
+		<div class="input-group{% if register_user_form.email.errors %} has-error{% endif %}">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 			{{ register_user_form.email(class='form-control', placeholder='E-postadress') }}
 		</div>
-		<div class="input-group">
+		<div class="input-group{% if register_user_form.password.errors %} has-error{% endif %}">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 			{{ register_user_form.password(class='form-control', placeholder='Lösenord') }}
 		</div>
