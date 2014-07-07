@@ -101,6 +101,9 @@ def guardians():
 @app.route('/kontaktpersoner/add/', methods=['GET', 'POST'])
 @login_required
 def guardian_add():
+	if current_user.profile.guardians.count() >= 2:
+		return redirect(url_for('guardians'))
+	
 	guardian = Guardian(profile=current_user.profile)
 	form = GuardianForm(obj=guardian)
 	if form.validate_on_submit():

@@ -10,6 +10,7 @@
 			</span>
 		</a>
 		{% endfor %}
+		{% if guardians.count() < 2 %}
 		<a class="list-group-item" href="{{ url_for('guardian_add') }}">
 			{% if guardians %}
 			<small>Lägg till</small>
@@ -17,5 +18,6 @@
 			<strong>Lägg till</strong>
 			{% endif %}
 		</a>
+		{% endif %}
 	</div>
 {% endblock %}
