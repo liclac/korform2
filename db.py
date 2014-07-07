@@ -63,8 +63,10 @@ class Group(db.Model):
 	
 	members = db.relationship('Korist', backref='group', lazy='dynamic')
 	
+	__mapper_args__ = { 'order_by': sortcode }
+	
 	def __str__(self):
-		return self.code
+		return "%s (%s)" % (self.name, self.code)
 
 class Guardian(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
