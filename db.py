@@ -23,12 +23,20 @@ class User(db.Model, UserMixin):
 	confirmed_at = db.Column(db.DateTime)
 	
 	roles = db.relationship('Role', secondary=role__user, backref=db.backref('users', lazy='dynamic'))
+	
+	children = db.relationship('Korist', backref='account', lazy='dynamic')
+	guardians = db.relationship('Guardian', backref='account', lazy='dynamic')
 
 
 
 event__group = db.Table('event__group',
 	db.Column('event_id', db.Integer, db.ForeignKey('event.id')),
 	db.Column('group_id', db.Integer, db.ForeignKey('group.id'))
+)
+
+korist__guardian = db.Table('korist__guardian',
+	db.Column('korist_id', db.Integer, db.ForeignKey('korist.id')),
+	db.Column('guardian_id', db.Integer, db.ForeignKey('guardian.id')),
 )
 
 class Group(db.Model):
@@ -47,14 +55,13 @@ class Group(db.Model):
 
 class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
+	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	
-	cont = db.Column(db.Boolean)
+	active = db.Column(db.Boolean)
+	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 	
 	first_name = db.Column(db.Text)
 	last_name = db.Column(db.Text)
-	parent_first_name = db.Column(db.Text)
-	parent_last_name = db.Column(db.Text)
 	
 	address_l1 = db.Column(db.Text)
 	address_l2 = db.Column(db.Text)
@@ -65,13 +72,6 @@ class Korist(db.Model):
 	mobile = db.Column(db.String(15))
 	email = db.Column(db.Text)
 	
-	guardian1 = db.Column(db.Text)
-	guardian1_phone = db.Column(db.Text)
-	guardian1_email = db.Column(db.Text)
-	guardian2 = db.Column(db.Text)
-	guardian2_phone = db.Column(db.Text)
-	guardian2_email = db.Column(db.Text)
-	
 	birth_year = db.Column(db.Integer)
 	birth_month = db.Column(db.Integer)
 	birth_day = db.Column(db.Integer)
@@ -79,10 +79,20 @@ class Korist(db.Model):
 	allergies = db.Column(db.Text)
 	other_info = db.Column(db.Text)
 	
+	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
 	osas = db.relationship('OSA', backref='korist', lazy='dynamic')
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
+
+class Guardian(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	account_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	
+	first_name = db.Column(db.Text)
+	last_name = db.Column(db.Text)
+	phone = db.Column(db.Text)
+	email = db.Column(db.Text)
 
 class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
