@@ -16,4 +16,4 @@ less = Bundle(
 	'style.less',
 	filters='less'
 )
-assets.register('css_all', less, filters='cssmin', output='gen/style.css')
+assets.register('css_all', less, output='gen/style.css')
