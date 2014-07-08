@@ -62,17 +62,25 @@ def korists():
 	korists = Korist.query.filter_by(profile=current_user.profile)
 	return render_template("korists.html", korists=korists)
 
-@app.route('/korister/add/', methods=['GET', 'POST'])
+@app.route('/korister/add/')
 @login_required
 def korist_add():
-	korist = Korist(profile=current_user.profile)
-	form = KoristForm(obj=korist)
+	groups = Group.query.all()
+	return render_template("korist_choose_group.html", groups=groups)
+
+@app.route('/korister/add/<group>/', methods=['GET', 'POST'])
+@login_required
+def korist_add2(group):
+	group = Group.query.filter_by(code=group).first()
+	korist = Korist(profile=current_user.profile, group=group)
+	korist.osas = [ OSA(korist=korist, event=event) for event in korist.group.events ]
+	form = KoristFormWithOSAs(obj=korist)
 	if form.validate_on_submit():
 		form.populate_obj(korist)
 		db.session.add(korist)
 		db.session.commit()
 		return redirect(url_for('korists'))
-	return render_template("korist_form.html", form=form)
+	return render_template("korist_form.html", korist=korist, form=form)
 
 @app.route('/korister/<id>/')
 @login_required

@@ -1,0 +1,20 @@
+{% extends "_modal_dialog.html" %}
+{% block modal_title %}Välj grupp{% endblock %}
+{% block modal_content %}
+	<p>
+		<strong>OBS:</strong><br />
+		Se till att du väljer rätt grupp!<br />
+		Väljer du fel så kan du inte själv korrigera det, utan hamnar i fel lista.
+	</p>
+	
+	<p>
+		<strong>Nyantagen?</strong><br />
+		Då är du aspirant i antingen goss- eller flickkören.
+	</p>
+	
+	<hr />
+	
+	<ul class="nav nav-pills nav-stacked">
+		{% for group in groups %}<li><a href="{{ url_for('korist_add2', group=group.code) }}">{{ group.name }} ({{ group.code }})</a></li>{% endfor %}
+	</ul>
+{% endblock %}

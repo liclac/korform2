@@ -2,13 +2,13 @@
 {% import "_macros.html" as m %}
 {% block content %}
 	<form class="form-horizontal" action="." method="POST">
+		{#{% for error in form.osas.errors %}{{ error }}{% endfor %}#}
+		
 		{{ form.hidden_tag() }}
 		
 		{{ m.hform_group("Förnamn*", form.first_name) }}
 		{{ m.hform_group("Efternamn*", form.last_name) }}
 		{{ m.hform_group("Födelsedag*", form.birthday, placeholder="ÅÅÅÅ-MM-DD") }}
-		
-		{{ m.hform_group("Grupp*", form.group) }}
 		
 		<hr />
 		
@@ -25,6 +25,30 @@
 		
 		{{ m.hform_group("Allergier", form.allergies, placeholder="Laktos, gluten, dumma människor, ...") }}
 		{{ m.hform_group("Övriga Upplysningar", form.other_info) }}
+		
+		<hr />
+		
+		{% if form.osas %}
+		<div class="list-group">
+		{% for i in range(korist.group.events.count()) %}
+			{% with event = korist.group.events[i], osa_form = form.osas[i] %}
+			<div class="list-group-item event">
+				{{ osa_form.hidden_tag() }}
+				<h3>
+					{{ event.title }}<br />
+					<small>{{ event.dateline }}</small>
+				</h3>
+				
+				{{ event.description|nl2br }}
+				
+				<hr />
+				
+				{{ m.form_print_field(osa_form.osa, class="radiolist") }}
+			</div>
+			{% endwith %}
+		{% endfor %}
+		</div>
+		{% endif %}
 		
 		<hr />
 		

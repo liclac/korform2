@@ -36,7 +36,7 @@ class EventModelView(ModelView):
 
 class OSAModelView(ModelView):
 	column_labels = { 'osa': 'OSA' }
-	column_choices = { 'osa': [(0, "Nej"), (1, "Ja"), (2, "Kanske")] }
+	column_choices = { 'osa': [(1, "Ja"), (2, "Nej"), (3, "Kanske")] }
 	form_overrides = { 'osa': fields.SelectField }
 	form_args = {
 		'osa': {

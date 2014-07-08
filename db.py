@@ -65,8 +65,6 @@ class Group(db.Model):
 	code = db.Column(db.String(10), unique=True, nullable=False)
 	name = db.Column(db.String(100), unique=True, nullable=False)
 	
-	members = db.relationship('Korist', backref='group', lazy='dynamic')
-	
 	# Make it default to sorting by sortcode, rather than the pk (id)
 	__mapper_args__ = { 'order_by': sortcode }
 	
@@ -93,6 +91,7 @@ class Korist(db.Model):
 	
 	active = db.Column(db.Boolean, default=True)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
+	group = db.relationship('Group', backref='members')
 	
 	first_name = db.Column(db.String(100), nullable=False)
 	last_name = db.Column(db.String(100), nullable=False)
@@ -110,7 +109,6 @@ class Korist(db.Model):
 	other_info = db.Column(db.Text)
 	
 	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
-	osas = db.relationship('OSA', backref=db.backref('korist', lazy='joined'), lazy='dynamic')
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
@@ -123,7 +121,6 @@ class Event(db.Model):
 	description = db.Column(db.Text)
 	
 	groups = db.relationship('Group', secondary=event__group, backref=db.backref('events', lazy='dynamic'))
-	osas = db.relationship('OSA', backref=db.backref('event', lazy='joined'), lazy='dynamic')
 	
 	def __str__(self):
 		return "%s (%s)" % (self.title, self.dateline)
@@ -133,10 +130,12 @@ class OSA(db.Model):
 	
 	osa = db.Column(db.Integer, nullable=False)
 	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+	event = db.relationship('Event', backref='osas')
 	korist_id = db.Column(db.Integer, db.ForeignKey('korist.id'))
+	korist = db.relationship('Korist', backref='osas')
 	
-	def osa_str(self):
-		return ['Ja', 'Nej', 'Kanske'][self.osa]
+	osa_strs = ['Nej', 'Ja', 'Kanske']
+	osa_str = lambda self: self.osa_strs[self.osa]
 	
 	def __str__(self):
 		return "%s (%s)" % (self.event.title, self.osa_str())
