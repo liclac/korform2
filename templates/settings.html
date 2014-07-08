@@ -1,0 +1,7 @@
+{% extends "_base.html" %}
+{% block content %}
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="{{ url_for('settings_password') }}">Byt lösenord</a></li>
+		<li><a href="{{ url_for('settings_shared') }}">Delad Profil</a></li>
+	</ul>
+{% endblock %}

@@ -2,6 +2,7 @@
 import re
 from flask import Flask, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
+from flask.ext.security.utils import encrypt_password
 from jinja2 import evalcontextfilter, Markup, escape
 from db import *
 from assets import assets
@@ -174,6 +175,27 @@ def guardian_delete(id):
 		db.session.commit()
 		return redirect(url_for('guardians'))
 	return render_template("guardian_delete.html", guardian=guardian, form=form)
+
+@app.route('/settings/')
+@login_required
+def settings():
+	return render_template("settings.html")
+
+@app.route('/settings/password/', methods=['GET', 'POST'])
+@login_required
+def settings_password():
+	form = PasswordForm()
+	if form.validate_on_submit():
+		current_user.password = encrypt_password(form.new_password.data)
+		db.session.add(current_user)
+		db.session.commit()
+		return redirect(url_for('settings'))
+	return render_template("settings_password.html", form=form)
+
+@app.route('/settings/sharing/')
+@login_required
+def settings_shared():
+	return render_template("settings_sharing.html")
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0')
