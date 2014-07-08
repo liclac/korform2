@@ -17,16 +17,16 @@ with app.test_request_context():
 	
 	# Create default groups
 	groupdata = [
-		(u'f0',  u'F asp',	u'Flickkörens aspiranter'),
-		(u'f1',	 u'YF',		u'Yngre Flickkören'),
-		(u'f2',	 u'ÄF',		u'Äldre Flickkören'),
-		(u'g0',	 u'G asp',	u'Gosskörens aspiranter'),
-		(u'g1',	 u'GK',		u'Gosskören'),
-		(u'g1n', u'NI',		u'Nissarna'),
-		(u'zgu', u'GU',		u'Göteborgs Ungdomskör')
+		(u'f0',  u'F asp', u'fasp',	u'Flickkörens aspiranter'),
+		(u'f1',	 u'YF',   u'yf',	u'Yngre Flickkören'),
+		(u'f2',	 u'ÄF',   u'af',	u'Äldre Flickkören'),
+		(u'g0',	 u'G asp', u'gasp',	u'Gosskörens aspiranter'),
+		(u'g1',	 u'GK',	  u'gk',	u'Gosskören'),
+		(u'g1n', u'NI',	  u'ni',	u'Nissarna'),
+		(u'zgu', u'GU',	  u'gu',	u'Göteborgs Ungdomskör')
 	]
 	for data in groupdata:
-		group = Group(sortcode=data[0], code=data[1], name=data[2])
+		group = Group(sortcode=data[0], code=data[1], slug=data[2], name=data[3])
 		db.session.add(group)
 		db.session.commit()
 

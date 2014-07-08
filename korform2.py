@@ -43,11 +43,17 @@ def nl2br(eval_ctx, value):
 
 
 @app.context_processor
-def context_processor():
+def template_function_cproc():
 	suffix_overrides = { 'message': 'info' }
 	return {
 		'alert_class_suffix_for_message_category':
 			lambda cat: suffix_overrides[cat] if cat in suffix_overrides else cat
+	}
+
+@app.context_processor
+def global_data_cproc():
+	return {
+		'all_groups': Group.query.all()
 	}
 
 
@@ -65,13 +71,12 @@ def korists():
 @app.route('/korister/add/')
 @login_required
 def korist_add():
-	groups = Group.query.all()
-	return render_template("korist_choose_group.html", groups=groups)
+	return render_template("korist_choose_group.html")
 
 @app.route('/korister/add/<group>/', methods=['GET', 'POST'])
 @login_required
 def korist_add2(group):
-	group = Group.query.filter_by(code=group).first()
+	group = Group.query.filter_by(slug=group).first()
 	korist = Korist(profile=current_user.profile, group=group)
 	korist.osas = [ OSA(korist=korist, event=event) for event in korist.group.events ]
 	form = KoristFormWithOSAs(obj=korist)

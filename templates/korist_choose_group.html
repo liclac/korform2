@@ -15,6 +15,6 @@
 	<hr />
 	
 	<ul class="nav nav-pills nav-stacked">
-		{% for group in groups %}<li><a href="{{ url_for('korist_add2', group=group.code) }}">{{ group.name }} ({{ group.code }})</a></li>{% endfor %}
+		{% for group in all_groups %}<li><a href="{{ url_for('korist_add2', group=group.slug) }}">{{ group.name }} ({{ group.code }})</a></li>{% endfor %}
 	</ul>
 {% endblock %}

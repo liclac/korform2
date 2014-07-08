@@ -59,9 +59,8 @@ korist__guardian = db.Table('korist__guardian',
 class Group(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
-	can_apply_to = db.Column(db.Boolean)
-	
 	sortcode = db.Column(db.String(10), unique=True, nullable=False)
+	slug = db.Column(db.String(10), unique=True, nullable=False)
 	code = db.Column(db.String(10), unique=True, nullable=False)
 	name = db.Column(db.String(100), unique=True, nullable=False)
 	
