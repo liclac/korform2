@@ -87,7 +87,7 @@ def korist_add():
 @app.route('/korister/add/<group>/', methods=['GET', 'POST'])
 @login_required
 def korist_add2(group):
-	group = Group.query.filter_by(slug=group).first()
+	group = Group.query.filter_by(slug=group).first_or_404()
 	korist = Korist(profile=current_user.profile, group=group)
 	korist.osas = [ OSA(korist=korist, event=event) for event in korist.group.events ]
 	form = KoristFormWithOSAs(obj=korist)
@@ -101,13 +101,16 @@ def korist_add2(group):
 @app.route('/korister/<id>/')
 @login_required
 def korist(id):
-	korist = Korist.query.get(id)
+	korist = Korist.query.get_or_404(id)
 	return render_template("korist.html", korist=korist)
 
 @app.route('/korister/<id>/edit/', methods=['GET', 'POST'])
 @login_required
 def korist_edit(id):
-	korist = Korist.query.get(id)
+	korist = Korist.query.get_or_404(id)
+	if korist.profile != current_user.profile:
+		abort(403)
+	
 	form = KoristForm(obj=korist)
 	if form.validate_on_submit():
 		form.populate_obj(korist)
@@ -140,13 +143,16 @@ def guardian_add():
 @app.route('/kontaktpersoner/<id>/')
 @login_required
 def guardian(id):
-	guardian = Guardian.query.get(id)
+	guardian = Guardian.query.get_or_404(id)
 	return render_template("guardian.html", guardian=guardian)
 
 @app.route('/kontaktpersoner/<id>/edit/', methods=['GET', 'POST'])
 @login_required
 def guardian_edit(id):
-	guardian = Guardian.query.get(id)
+	guardian = Guardian.query.get_or_404(id)
+	if guardian.profile != current_user.profile:
+		abort(403)
+	
 	form = GuardianForm(obj=guardian)
 	if form.validate_on_submit():
 		form.populate_obj(guardian)
@@ -158,7 +164,10 @@ def guardian_edit(id):
 @app.route('/kontaktpersoner/<id>/delete/', methods=['GET', 'POST'])
 @login_required
 def guardian_delete(id):
-	guardian = Guardian.query.get(id)
+	guardian = Guardian.query.get_or_404(id)
+	if guardian.profile != current_user.profile:
+		abort(403)
+	
 	form = DeleteForm()
 	if form.validate_on_submit():
 		db.session.delete(guardian)
