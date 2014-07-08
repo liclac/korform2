@@ -36,9 +36,11 @@
 		{% endif %}
 	</dl>
 	
+	{% if korist.profile == current_user.profile %}
 	<hr />
 	
 	<div class="buttonset">
 		<a class="btn btn-default btn-xs-block" href="{{ url_for('korist_edit', id=korist.id) }}">Redigera</a>
 	</div>
+	{% endif %}
 {% endblock %}

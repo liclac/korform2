@@ -23,10 +23,12 @@
 		{% endif %}
 	</dl>
 	
+	{% if guardian.account == current_user.account %}
 	<hr />
 	
 	<div class="buttonset">
 		<a class="btn btn-default" href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a>
 		<a class="btn btn-danger" href="{{ url_for('guardian_delete', id=guardian.id) }}">Radera</a>
 	</div>
+	{% endif %}
 {% endblock %}
