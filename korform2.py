@@ -90,7 +90,7 @@ def korist_edit(id):
 		db.session.add(korist)
 		db.session.commit()
 		return redirect(url_for('korist', id=korist.id))
-	return render_template("korist_form.html", form=form)
+	return render_template("korist_form.html", korist=korist, form=form)
 
 @app.route('/kontaktpersoner/')
 @login_required
@@ -129,7 +129,18 @@ def guardian_edit(id):
 		db.session.add(guardian)
 		db.session.commit()
 		return redirect(url_for('guardian', id=guardian.id))
-	return render_template("guardian_form.html", form=form)
+	return render_template("guardian_form.html", guardian=guardian, form=form)
+
+@app.route('/kontaktpersoner/<id>/delete/', methods=['GET', 'POST'])
+@login_required
+def guardian_delete(id):
+	guardian = Guardian.query.get(id)
+	form = DeleteForm()
+	if form.validate_on_submit():
+		db.session.delete(guardian)
+		db.session.commit()
+		return redirect(url_for('guardians'))
+	return render_template("guardian_delete.html", guardian=guardian, form=form)
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0')

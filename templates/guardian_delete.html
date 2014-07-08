@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% import "_macros.html" as m %}
+{% block content %}
+	<form class="form-horizontal" action="." method="POST">
+		{{ form.hidden_tag() }}
+		
+		<h3>Vill du verkligen radera {{ guardian.first_name }} {{ guardian.last_name }}?</h3>
+		<p>
+			All information om vårdnadshavaren kommer att tas bort.<br />
+			Du kan inte ångra det här.
+		</p>
+		
+		<div class="checkbox">
+			<label>
+				{{ form.confirmation(id='confirmation') }}
+				Jag är helt säker
+			</label>
+		</div>
+		
+		<div class="pull-right">
+			<a class="btn btn-default" href="{{ url_for('guardians') }}">Avbryt</a>
+			<input type="submit" class="btn btn-primary" value="Radera" />
+		</div>
+	</form>
+{% endblock %}
+{% block extrascripts %}
+	<script type="text/javascript">
+	// Enable the Submit button only when the confirmation checkbox is checked
+	$('#confirmation').change(function() {
+		$('input[type=submit]').attr('disabled', !this.checked)
+	})
+	</script>
+{% endblock %}

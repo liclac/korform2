@@ -1,5 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms_alchemy import model_form_factory
+from wtforms import fields, validators
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from db import *
 
@@ -20,3 +21,6 @@ class KoristForm(ModelForm):
 class GuardianForm(ModelForm):
 	class Meta:
 		model = Guardian
+
+class DeleteForm(Form):
+	confirmation = fields.BooleanField(validators=[validators.required()])

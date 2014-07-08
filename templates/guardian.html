@@ -2,7 +2,7 @@
 {% block content %}
 	<h1>
 		{{ guardian.first_name }} {{ guardian.last_name }}
-		<a class="btn btn-default pull-right" href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a>
+		
 	</h1>
 	
 	{% if guardian.comment %}
@@ -22,4 +22,11 @@
 		<dd>{{ guardian.email }}</dd>
 		{% endif %}
 	</dl>
+	
+	<hr />
+	
+	<ul class="nav nav-custom-list">
+		<li><a href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a></li>
+		<li><a href="{{ url_for('guardian_delete', id=guardian.id) }}">Radera</a></li>
+	</ul>
 {% endblock %}
