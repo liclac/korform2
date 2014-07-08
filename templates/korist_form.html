@@ -12,7 +12,7 @@
 		
 		<hr />
 		
-		{{ m.hform_group("Address 1*", form.address1) }}
+		{{ m.hform_group("Address 1*", form.address1, placeholder="Allt man behöver skriva på ett brev för att det ska komma fram, inklusive postnummer osv") }}
 		{{ m.hform_group("Address 2", form.address2, placeholder="(Om man bor på två ställen)") }}
 		
 		<hr />
@@ -26,9 +26,9 @@
 		{{ m.hform_group("Allergier", form.allergies, placeholder="Laktos, gluten, dumma människor, ...") }}
 		{{ m.hform_group("Övriga Upplysningar", form.other_info) }}
 		
+		{% if form.osas|count > 0 %}
 		<hr />
 		
-		{% if form.osas %}
 		<div class="list-group">
 		{% for i in range(korist.group.events.count()) %}
 			{% with event = korist.group.events[i], osa_form = form.osas[i] %}
