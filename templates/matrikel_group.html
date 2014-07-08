@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+{% block content %}
+	<table class="table">
+		<thead>
+			<th>Förnamn</th>
+			<th>Efternamn</th>
+			<th>Adress</th>
+			<th>Telefonnummer</th>
+			<th>Mobilnummer</th>
+			<th>E-postadress</th>
+			<th class="hidden-print">Mer</th>
+		</thead>
+		<tbody>
+			{% for korist in group.members %}
+			<tr>
+				<td>{{ korist.first_name }}</td>
+				<td>{{ korist.last_name }}</td>
+				<td>
+					{{ korist.address1|nl2br }}
+					{% if korist.address2 %}{{ korist.address2|nl2br }}{% endif %}
+				</td>
+				<td>{{ korist.phone }}</td>
+				<td>{{ korist.mobile }}</td>
+				<td>{{ korist.email }}</td>
+				<td class="hidden-print"><a href="{{ url_for('korist', id=korist.id) }}">&rarr;</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

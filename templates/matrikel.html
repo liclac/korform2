@@ -1,0 +1,7 @@
+{% extends "_modal_dialog.html" %}
+{% block modal_title %}Välj grupp{% endblock %}
+{% block modal_content %}
+	<ul class="nav nav-pills nav-stacked">
+		{% for group in all_groups %}<li><a href="{{ url_for('matrikel_group', group=group.slug) }}">{{ group.name }} ({{ group.code }})</a></li>{% endfor %}
+	</ul>
+{% endblock %}

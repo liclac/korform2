@@ -62,6 +62,17 @@ def global_data_cproc():
 def index():
 	return render_template("index.html")
 
+@app.route('/matrikel/')
+@login_required
+def matrikel():
+	return render_template('matrikel.html')
+
+@app.route('/matrikel/<group>/')
+@login_required
+def matrikel_group(group):
+	group = Group.query.filter_by(slug=group).first()
+	return render_template('matrikel_group.html', group=group)
+
 @app.route('/korister/')
 @login_required
 def korists():

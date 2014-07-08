@@ -21,6 +21,14 @@
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				{% if current_user.is_authenticated() %}
 				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matriklar <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							{% for group in all_groups %}
+							<li><a href="{{ url_for('matrikel_group', group=group.slug) }}">{{ group.name }} ({{ group.code }})</a></li>
+							{% endfor %}
+						</ul>
+					</li>
 					<li><a href="{{ url_for('korists') }}">Mina Korister</a></li>
 					<li><a href="{{ url_for('guardians') }}">Mina Vårdnadshavare</a></li>
 				</ul>
