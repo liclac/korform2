@@ -2,7 +2,6 @@
 {% block content %}
 	<h1>
 		{{ korist.first_name }} {{ korist.last_name }} <small>({{ korist.group.code }})</small>
-		<a class="btn btn-default pull-right" href="{{ url_for('korist_edit', id=korist.id) }}">Redigera</a>
 	</h1>
 	
 	{% if korist.other_info or korist.allergies %}<hr />{% endif %}
@@ -36,4 +35,10 @@
 		<dd>{{ korist.email }}</dd>
 		{% endif %}
 	</dl>
+	
+	<hr />
+	
+	<div class="buttonset">
+		<a class="btn btn-default btn-xs-block" href="{{ url_for('korist_edit', id=korist.id) }}">Redigera</a>
+	</div>
 {% endblock %}

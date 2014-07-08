@@ -25,8 +25,8 @@
 	
 	<hr />
 	
-	<ul class="nav nav-custom-list">
-		<li><a href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a></li>
-		<li><a href="{{ url_for('guardian_delete', id=guardian.id) }}">Radera</a></li>
-	</ul>
+	<div class="buttonset">
+		<a class="btn btn-default" href="{{ url_for('guardian_edit', id=guardian.id) }}">Redigera</a>
+		<a class="btn btn-danger" href="{{ url_for('guardian_delete', id=guardian.id) }}">Radera</a>
+	</div>
 {% endblock %}
