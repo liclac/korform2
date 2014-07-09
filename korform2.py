@@ -13,8 +13,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 app.config.from_object('keys')
 
-db.init_app(app); db.app = app
-
+db.init_app(app)
 assets.init_app(app)
 admin.init_app(app)
 
