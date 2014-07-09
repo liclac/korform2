@@ -23,6 +23,9 @@ class PasswordForm(Form):
 		if not verify_password(field.data, current_user.password):
 			raise ValidationError('Incorrect password')
 
+class SharingInviteForm(Form):
+	email = fields.TextField(validators=[validators.required()])
+
 class OSAForm(Form):
 	osa = fields.RadioField(choices=[(1, 'Ja'), (2, 'Nej'), (3, 'Kanske')], validators=[validators.required()], coerce=int)
 

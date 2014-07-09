@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+{% import "_macros.html" as m %}
+{% block content %}
+	<h4>Dela profil med någon</h4>
+	<p>
+		Om du delar din profil med någon så kommer ni kommer båda att dela ägarskap över samma korister och vårndadshavare.<br />
+		När du väl har delat din profil med någon så kan du inte "av-dela" den, men du kan "avgå" för att ge upp delägarskap över en profil, och få en ny, tom profil för dig själv.
+	</p>
+	
+	<form action="." method="POST">
+		{{ form.hidden_tag() }}
+		<div class="input-group">
+			{{ m.form_print_field(form.email, placeholder="E-postadress") }}
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default">Lägg till</button>
+			</span>
+		</div>
+	</form>
+	
+	<hr />
+	
+	<h4>Du delar för närvarande profil med...</h4>
+	<ul class="list-group">
+		<li class="list-group-item">helander.ekberg@gmail.com</li>
+	</ul>
+	<div class="buttonset">
+		<a class="btn btn-danger">Avgå från delad profil</a>
+	</div>
+{% endblock %}
