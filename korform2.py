@@ -191,6 +191,7 @@ def settings_password():
 		return redirect(url_for('settings'))
 	return render_template("settings_password.html", form=form)
 
+'''
 @app.route('/settings/sharing/', methods=['GET', 'POST'])
 @login_required
 def settings_shared():
@@ -198,6 +199,7 @@ def settings_shared():
 	if form.validate_on_submit():
 		pass
 	return render_template("settings_sharing.html", form=form)
+'''
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0')
