@@ -1,21 +1,35 @@
-from flask.ext.admin import Admin
+from flask.ext.admin import Admin, AdminIndexView, BaseView
 from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.security import current_user
 from wtforms import fields
 from db import *
 
-admin = Admin()
+class AdminAuthMixin(object):
+	def is_accessible(self):
+		return current_user.has_role('Admin')
 
-class RoleModelView(ModelView):
+class MyAdminIndexView(AdminAuthMixin, AdminIndexView):
+	pass
+
+class MyBaseView(AdminAuthMixin, BaseView):
+	pass
+
+class MyModelView(AdminAuthMixin, ModelView):
+	pass
+
+
+
+class RoleModelView(MyModelView):
 	form_overrides = { 'description': fields.TextAreaField }
 
-class UserModelView(ModelView):
+class UserModelView(MyModelView):
 	column_exclude_list = ['password']
 	form_excluded_columns = ['password']
 
-class ProfileModelView(ModelView):
+class ProfileModelView(MyModelView):
 	column_list = ['users']
 
-class KoristModelView(ModelView):
+class KoristModelView(MyModelView):
 	column_list = ['group', 'first_name', 'last_name', 'phone', 'mobile', 'email']
 	form_excluded_columns = ['osas']
 	form_overrides = {
@@ -24,17 +38,17 @@ class KoristModelView(ModelView):
 		'region': fields.TextField
 	}
 
-class GuardianModelView(ModelView):
+class GuardianModelView(MyModelView):
 	column_exclude_list = ['profile', 'comment']
 
-class GroupModelView(ModelView):
+class GroupModelView(MyModelView):
 	form_excluded_columns = ['members']
 
-class EventModelView(ModelView):
+class EventModelView(MyModelView):
 	column_list = ['groups', 'title', 'dateline']
 	form_excluded_columns = ['osas']
 
-class OSAModelView(ModelView):
+class OSAModelView(MyModelView):
 	column_labels = { 'osa': 'OSA' }
 	column_choices = { 'osa': [(1, "Ja"), (2, "Nej"), (3, "Kanske")] }
 	form_overrides = { 'osa': fields.SelectField }
@@ -45,6 +59,9 @@ class OSAModelView(ModelView):
 		}
 	}
 
+
+
+admin = Admin(index_view=MyAdminIndexView())
 admin.add_view(RoleModelView(Role, db.session, endpoint='role'))
 admin.add_view(UserModelView(User, db.session, endpoint='user'))
 admin.add_view(ProfileModelView(Profile, db.session, endpoint='profile'))
