@@ -3,6 +3,7 @@ import re
 from flask import Flask, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
 from flask.ext.security.utils import encrypt_password
+from flask.ext.mail import Mail
 from jinja2 import evalcontextfilter, Markup, escape
 from db import *
 from assets import assets
@@ -12,6 +13,8 @@ from forms import *
 app = Flask(__name__)
 app.config.from_object('config')
 app.config.from_object('keys')
+
+mail = Mail(app)
 
 db.init_app(app)
 assets.init_app(app)
