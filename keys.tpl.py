@@ -1,3 +1,9 @@
+# -- Local configuration
+# Email won't work without changing this
+SECURITY_EMAIL_SENDER	= 'noreply@yourdomain.com'
+# If this isn't set, it'll default to using a sqlite3 db called 'korform2.db'
+#SQLALCHEMY_DATABASE_URI = 'mysql://korform2:password@localhost/korform2'
+
 # -- Security Salts
 # 
 # It's kinda important that you change these; if an attacker can guess your
