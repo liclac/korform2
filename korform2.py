@@ -204,6 +204,10 @@ def settings_shared():
 	return render_template("settings_sharing.html", form=form)
 '''
 
+@app.errorhandler(404)
+def error_404(e):
+	return render_template("errors/404.html")
+
 @app.errorhandler(403)
 def error_403(e):
 	if not current_user.is_authenticated():
