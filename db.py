@@ -128,12 +128,15 @@ class OSA(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
 	osa = db.Column(db.Integer, nullable=False)
+	comment = db.Column(db.Text)
+	
 	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 	event = db.relationship('Event', backref='osas')
 	korist_id = db.Column(db.Integer, db.ForeignKey('korist.id'))
 	korist = db.relationship('Korist', backref='osas')
 	
-	osa_strs = ['Nej', 'Ja', 'Kanske']
+	# UI
+	osa_strs = ['', 'Nej', 'Ja', 'Kanske']
 	osa_str = lambda self: self.osa_strs[self.osa]
 	
 	def __str__(self):

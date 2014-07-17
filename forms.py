@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask.ext.wtf import Form
 from flask.ext.security import current_user
 from flask.ext.security.utils import verify_password
@@ -29,7 +30,8 @@ class SharingInviteForm(Form):
 '''
 
 class OSAForm(Form):
-	osa = fields.RadioField(choices=[(1, 'Ja'), (2, 'Nej'), (3, 'Kanske')], validators=[validators.required()], coerce=int)
+	osa = fields.RadioField(choices=[(1, u'Ja, jag räknar med att kunna vara med.'), (2, u'Nej, jag vet redan att jag inte kan vara med (motivera nedan).'), (3, u'Jag kan inte lämna besked just nu.')], validators=[validators.required()], coerce=int)
+	comment = fields.TextField()
 
 class KoristForm(ModelForm):
 	class Meta:
