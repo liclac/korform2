@@ -22,7 +22,7 @@
 				{% if current_user.is_authenticated() %}
 				<ul class="nav navbar-nav">
 					<li class="dropdown{% if tab == "matrikel" %} active{% endif %}">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matriklar <span class="caret"></span></a>
+						<a href="{{ url_for('matrikel') }}" class="dropdown-toggle" data-toggle="dropdown">Matriklar <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							{% for group in all_groups %}
 							<li{% if tabsub == group.slug %} class="active"{% endif %}><a href="{{ url_for('matrikel_group', group=group.slug) }}">{{ group.name }} ({{ group.code }})</a></li>

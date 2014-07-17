@@ -3,7 +3,7 @@
 {% block content %}
 	<div class="list-group">
 		{% for korist in korists %}
-		<a class="list-group-item" href="{{ url_for('korist', id=korist.id) }}">
+		<a class="list-group-item{% if not korist.active %} disabled{% endif %}"{% if korist.active %} href="{{ url_for('korist', id=korist.id) }}"{% endif %}>
 			<strong>{{ korist.first_name }} {{ korist.last_name }}</strong> <span class="pull-right hidden-xs">{{ korist.group.code }}</span>
 		</a>
 		{% endfor %}

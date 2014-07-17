@@ -7,6 +7,21 @@
 		
 		{{ form.hidden_tag() }}
 		
+		{% if form.active %}
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<div class="checkbox">
+					<label>
+						{{ form.active }}
+						Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014
+					</label>
+				</div>
+			</div>
+		</div>
+		
+		<hr />
+		{% endif %}
+		
 		{{ m.hform_group("Förnamn*", form.first_name) }}
 		{{ m.hform_group("Efternamn*", form.last_name) }}
 		{{ m.hform_group("Födelsedag*", form.birthday, placeholder="ÅÅÅÅ-MM-DD") }}
@@ -28,32 +43,43 @@
 		{{ m.hform_group("Övriga Upplysningar", form.other_info) }}
 		
 		{% if form.osas|count > 0 %}
-		<hr />
 		
-		<div class="list-group">
-		{% for i in range(korist.group.events.count()) %}
-			{% with event = korist.group.events[i], osa_form = form.osas[i] %}
-			<div class="list-group-item event">
-				{{ osa_form.hidden_tag() }}
-				<h3>
-					{{ event.title }}<br />
-					<small>{{ event.dateline }}</small>
-				</h3>
-				
-				{{ event.description|nl2br }}
-				
-				<hr />
-				
-				{{ m.form_print_field(osa_form.osa, class="radiolist") }}
-				{{ m.form_print_field(osa_form.comment, placeholder="Kommentar") }}
+		<div id="events-container">
+			<hr />
+			
+			<div class="list-group">
+			{% for i in range(korist.group.events.count()) %}
+				{% with event = korist.group.events[i], osa_form = form.osas[i] %}
+				<div class="list-group-item event">
+					{{ osa_form.hidden_tag() }}
+					<h3>
+						{{ event.title }}<br />
+						<small>{{ event.dateline }}</small>
+					</h3>
+					
+					{{ event.description|nl2br }}
+					
+					<hr />
+					
+					{{ m.form_print_field(osa_form.osa, class="radiolist") }}
+					{{ m.form_print_field(osa_form.comment, placeholder="Kommentar") }}
+				</div>
+				{% endwith %}
+			{% endfor %}
 			</div>
-			{% endwith %}
-		{% endfor %}
+			{% endif %}
 		</div>
-		{% endif %}
 		
 		<hr />
 		
 		<input type="submit" class="btn btn-primary" value="Spara" />
 	</form>
+{% endblock %}
+{% block extrascripts %}
+	<script type="text/javascript">
+	$('#active').change(function() {
+		$('#events-container').toggle(this.checked)
+		$('.event input[value=2]').prop('checked', !this.checked)
+	}).change()
+	</script>
 {% endblock %}

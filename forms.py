@@ -39,6 +39,9 @@ class KoristForm(ModelForm):
 		exclude = ['active']
 	
 class KoristFormWithOSAs(KoristForm):
+	class Meta:
+		exclude = []
+	
 	osas = fields.FieldList(fields.FormField(OSAForm))
 
 class GuardianForm(ModelForm):
