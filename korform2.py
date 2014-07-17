@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import re
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, current_app, abort, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
 from flask.ext.security.utils import encrypt_password
 from flask.ext.mail import Mail
@@ -203,6 +203,13 @@ def settings_shared():
 		pass
 	return render_template("settings_sharing.html", form=form)
 '''
+
+@app.errorhandler(403)
+def error_403(e):
+	if not current_user.is_authenticated():
+		return current_app.login_manager.unauthorized()
+	
+	return render_template("errors/403.html")
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0')
