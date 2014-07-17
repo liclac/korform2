@@ -47,9 +47,15 @@ td > a:first-child:last-child {
 
 .radiolist {
 	list-style-type: none;
+	padding-left: 0;
 	
 	label {
 		font-weight: 400 !important;
+	}
+	
+	input[type=radio] {
+		margin-bottom: 5px;
+		&:last-child { margin-bottom: 0; }
 	}
 }
 .has-error .radiolist {

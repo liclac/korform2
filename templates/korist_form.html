@@ -11,10 +11,7 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<div class="checkbox">
-					<label>
-						{{ form.active }}
-						Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014
-					</label>
+					{{ m.form_print_field(form.active, class="radiolist") }}
 				</div>
 			</div>
 		</div>
@@ -78,8 +75,9 @@
 {% block extrascripts %}
 	<script type="text/javascript">
 	$('#active').change(function() {
-		$('#events-container').toggle(this.checked)
-		$('.event input[value=2]').prop('checked', !this.checked)
+		var active = $('input[name=active]:checked').val()
+		$('#events-container').toggle(active == 1)
+		$('.event input[value=2]').prop('checked', active != 1)
 	}).change()
 	</script>
 {% endblock %}
