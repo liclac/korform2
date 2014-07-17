@@ -1,4 +1,6 @@
 {% extends "_base.html" %}
+{% set tab = "user" %}
+{% set tabsub = "settings" %}
 {% block content %}
 	<ul class="nav nav-pills nav-stacked">
 		<li><a href="{{ url_for('settings_password') }}">Byt lösenord</a></li>

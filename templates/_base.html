@@ -21,30 +21,30 @@
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				{% if current_user.is_authenticated() %}
 				<ul class="nav navbar-nav">
-					<li class="dropdown">
+					<li class="dropdown{% if tab == "matrikel" %} active{% endif %}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matriklar <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							{% for group in all_groups %}
-							<li><a href="{{ url_for('matrikel_group', group=group.slug) }}">{{ group.name }} ({{ group.code }})</a></li>
+							<li{% if tabsub == group.slug %} class="active"{% endif %}><a href="{{ url_for('matrikel_group', group=group.slug) }}">{{ group.name }} ({{ group.code }})</a></li>
 							{% endfor %}
 						</ul>
 					</li>
-					<li><a href="{{ url_for('korists') }}">Mina Korister</a></li>
-					<li><a href="{{ url_for('guardians') }}">Mina Vårdnadshavare</a></li>
+					<li{% if tab == "korists" %} class="active"{% endif %}><a href="{{ url_for('korists') }}">Mina Korister</a></li>
+					<li{% if tab == "guardians" %} class="active"{% endif %}><a href="{{ url_for('guardians') }}">Mina Vårdnadshavare</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
+					<li class="dropdown{% if tab == "user" %} active{% endif %}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ current_user.email }} <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							{% if current_user.has_role('Admin') %}<li><a href="{{ url_for('admin.index') }}">Admin</a></li>{% endif %}
-							<li><a href="{{ url_for('settings') }}">Inställningar</a></li>
+							<li{% if tabsub == "settings" %} class="active"{% endif %}><a href="{{ url_for('settings') }}">Inställningar</a></li>
 							<li><a href="{{ url_for('security.logout') }}">Logga ut</a></li>
 						</ul>
 					</li>
 				</ul>
 				{% else %}
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="{{ url_for('security.login') }}">Logga in</a></li>
+					<li{% if tab == "login" %} class="active"{% endif %}><a href="{{ url_for('security.login') }}">Logga in</a></li>
 				</ul>
 				{% endif %}
 			</div>
