@@ -48,7 +48,7 @@
 			</h4>
 			
 			<div class="small">
-				{{ osa.event.description|nl2br }}
+				{{ osa.event.description|safe|nl2br }}
 			</div>
 			
 			{% if osa.comment %}

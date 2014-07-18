@@ -58,7 +58,7 @@
 						<small>{{ event.dateline }}</small>
 					</h3>
 					
-					{{ event.description|nl2br }}
+					{{ event.description|safe|nl2br }}
 					
 					<hr />
 					
