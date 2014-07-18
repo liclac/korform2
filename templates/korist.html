@@ -4,13 +4,13 @@
 		{{ korist.first_name }} {{ korist.last_name }} <small>(<a href="{{ url_for('matrikel_group', group=korist.group.slug) }}">{{ korist.group.code }}</a>)</small>
 	</h1>
 	
-	{% if korist.other_info or korist.allergies %}<hr />{% endif %}
-	{% if korist.other_info %}
+	{% if (korist.other_info and korist.profile == current_user.profile) or korist.allergies %}<hr />{% endif %}
+	{% if korist.other_info and korist.profile == current_user.profile %}
 	{{ korist.other_info|nl2br }}
 	{% endif %}
 	
 	{% if korist.allergies %}
-	{% if korist.other_info %}<br />{% endif %}
+	{% if korist.other_info and korist.profile == current_user.profile %}<br />{% endif %}
 	<h5>Allergier</h5>
 	{{ korist.allergies|nl2br }}
 	{% endif %}

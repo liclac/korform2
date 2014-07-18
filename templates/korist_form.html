@@ -36,8 +36,8 @@
 		
 		<hr />
 		
-		{{ m.hform_group("Allergier", form.allergies, placeholder="Födoämnesallergier och -överkänsligheter, tex nötter, laktos och andra matrelaterade hänsyn, tex vegetarian") }}
-		{{ m.hform_group("Övriga Upplysningar", form.other_info) }}
+		{{ m.hform_group("Allergier", form.allergies, placeholder="Födoämnesallergier och -överkänsligheter, tex nötter, laktos och andra matrelaterade hänsyn, tex vegetarian. Det du skriver här syns i matrikeln.") }}
+		{{ m.hform_group("Övriga Upplysningar", form.other_info, placeholder="Det du skriver här syns inte i matrikeln, det kan endast läsas av körens dirigenter och databasens administratör.") }}
 		
 		{% if form.osas|count > 0 %}
 		
