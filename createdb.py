@@ -23,7 +23,7 @@ with app.test_request_context():
 		(u'g0',	 u'G asp', u'gasp',	u'Gosskörens aspiranter'),
 		(u'g1',	 u'GK',	  u'gk',	u'Gosskören'),
 		(u'g1n', u'NI',	  u'ni',	u'Nissarna'),
-		(u'zgu', u'GU',	  u'gu',	u'Göteborgs Ungdomskör')
+		(u'zgu', u'GU',	  u'gu',	u'Gustavi Ungdomskör')
 	]
 	for data in groupdata:
 		group = Group(sortcode=data[0], code=data[1], slug=data[2], name=data[3])
