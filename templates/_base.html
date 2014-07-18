@@ -29,8 +29,8 @@
 							{% endfor %}
 						</ul>
 					</li>
-					<li{% if tab == "korists" %} class="active"{% endif %}><a href="{{ url_for('korists') }}">Mina Korister</a></li>
 					<li{% if tab == "guardians" %} class="active"{% endif %}><a href="{{ url_for('guardians') }}">Mina Vårdnadshavare</a></li>
+					<li{% if tab == "korists" %} class="active"{% endif %}><a href="{{ url_for('korists') }}">Mina Korister</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown{% if tab == "user" %} active{% endif %}">
