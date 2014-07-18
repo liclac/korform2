@@ -44,6 +44,10 @@
 		<div id="events-container">
 			<hr />
 			
+			<p>
+				Dina svar på event syns bara för dig själv, din dirigent och administratören.
+			</p>
+			
 			<div class="list-group">
 			{% for i in range(korist.group.events.count()) %}
 				{% with event = korist.group.events[i], osa_form = form.osas[i] %}

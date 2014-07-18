@@ -140,8 +140,11 @@ class OSA(db.Model):
 	korist = db.relationship('Korist', backref='osas')
 	
 	# UI
-	osa_strs = ['', 'Nej', 'Ja', 'Kanske']
+	osa_strs = ['NULL', 'Nej', 'Ja', 'Kanske']
 	osa_str = lambda self: self.osa_strs[self.osa]
+	
+	osa_class_suffixes = ['unknown', 'danger', 'success', 'warning']
+	osa_class_suffix = lambda self: self.osa_class_suffixes[self.osa]
 	
 	def __str__(self):
 		return "%s (%s)" % (self.event.title, self.osa_str())

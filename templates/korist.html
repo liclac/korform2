@@ -39,6 +39,27 @@
 	{% if korist.profile == current_user.profile %}
 	<hr />
 	
+	<div class="list-group">
+	{% for osa in korist.osas %}
+		<div class="list-group-item list-group-item-{{ osa.osa_class_suffix() }} event">
+			<small class="pull-right"><strong>{{ osa.osa_str() }}</strong></small>
+			<h4>
+				{{ osa.event.title }} <small>&mdash;&nbsp;{{ osa.event.dateline }}</small>
+			</h4>
+			
+			<div class="small">
+				{{ osa.event.description|nl2br }}
+			</div>
+			
+			{% if osa.comment %}
+			<p><em>({{ osa.comment }})</em></p>
+			{% endif %}
+		</div>
+	{% endfor %}
+	</div>
+	
+	<hr />
+	
 	<div class="buttonset">
 		<a class="btn btn-default btn-xs-block" href="{{ url_for('korist_edit', id=korist.id) }}">Redigera</a>
 	</div>
