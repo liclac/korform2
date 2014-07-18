@@ -25,7 +25,7 @@
 		
 		<hr />
 		
-		{{ m.hform_group("Address 1*", form.address1, placeholder="Allt man behöver skriva på ett brev för att det ska komma fram, inklusive postnummer osv") }}
+		{{ m.hform_group("Address 1*", form.address1, placeholder="Allt man behöver skriva på ett brev för att det ska komma fram, inklusive postnummer") }}
 		{{ m.hform_group("Address 2", form.address2, placeholder="(Om man bor på två ställen)") }}
 		
 		<hr />
@@ -36,7 +36,7 @@
 		
 		<hr />
 		
-		{{ m.hform_group("Allergier", form.allergies, placeholder="Laktos, gluten, dumma människor, ...") }}
+		{{ m.hform_group("Allergier", form.allergies, placeholder="Födoämnesallergier och -överkänsligheter, tex nötter, laktos och andra matrelaterade hänsyn, tex vegetarian") }}
 		{{ m.hform_group("Övriga Upplysningar", form.other_info) }}
 		
 		{% if form.osas|count > 0 %}
