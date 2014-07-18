@@ -116,6 +116,7 @@ class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
 	title = db.Column(db.Text, nullable=False)
+	sort_date = db.Column(db.Date)
 	dateline = db.Column(db.Text)
 	description = db.Column(db.Text)
 	

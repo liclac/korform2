@@ -37,7 +37,7 @@ class KoristForm(ModelForm):
 	class Meta:
 		model = Korist
 		exclude = ['active']
-	
+
 class KoristFormWithOSAs(KoristForm):
 	class Meta:
 		exclude = []
