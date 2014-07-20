@@ -44,7 +44,7 @@ class KoristFormWithOSAs(KoristForm):
 	class Meta:
 		exclude = []
 	
-	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014'), (2, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.required()], coerce=int)
+	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014'), (0, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.required()], coerce=bool)
 	osas = fields.FieldList(fields.FormField(OSAForm))
 
 class GuardianForm(ModelForm):
