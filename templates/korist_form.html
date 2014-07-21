@@ -73,6 +73,16 @@
 		
 		<hr />
 		
+		<div class="form-group" id="confirmation-container">
+			<div class="col-sm-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="confirmation" />
+						Jag är medveten om att jag som medlem i körerna också är medlem i Föreningen Domkyrkans Goss- och Flickkörer och kommer att betala familjens årsavgift på (minst) 200 kr senast 31 augusti.
+					</label>
+				</div>
+			</div>
+		</div>
 		<input type="submit" class="btn btn-primary" value="Spara" />
 	</form>
 {% endblock %}
@@ -81,7 +91,13 @@
 	$('#active').change(function() {
 		var active = $('input[name=active]:checked').val()
 		$('#events-container').toggle(active == 1)
+		$('#confirmation-container').toggle(active == 1)
 		$('.event input[value=2]').prop('checked', active != 1)
+		$('#confirmation').prop('checked', active != 1).change()
+	}).change()
+	
+	$('#confirmation').change(function() {
+		$('input[type=submit]').prop('disabled', !this.checked)
 	}).change()
 	</script>
 {% endblock %}
