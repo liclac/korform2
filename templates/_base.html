@@ -59,6 +59,12 @@
 		</div>
 		{% endfor %}
 		{%- block content %}Oops, nothing here.{% endblock -%}
+		<footer id="footer">
+			<hr />
+			<p class="small muted">
+				Kontakta <a href="mailto:webmaster@musikidomkyrkan.se">webmaster@musikidomkyrkan.se</a> om några problem uppstår.
+			</p>
+		</footer>
 	</div>
 	
 	{% assets 'js_all' %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
