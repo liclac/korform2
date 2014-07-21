@@ -6,7 +6,6 @@
 		<thead>
 			<th>Förnamn</th>
 			<th>Efternamn</th>
-			<th>Adress</th>
 			<th>Telefonnummer</th>
 			<th>Mobilnummer</th>
 			<th>E-postadress</th>
@@ -18,10 +17,6 @@
 			<tr>
 				<td>{{ korist.first_name }}</td>
 				<td>{{ korist.last_name }}</td>
-				<td>
-					{{ korist.address1|nl2br }}
-					{% if korist.address2 %}{{ korist.address2|nl2br }}{% endif %}
-				</td>
 				<td>{{ korist.phone }}</td>
 				<td>{{ korist.mobile }}</td>
 				<td>{{ korist.email }}</td>
