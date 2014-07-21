@@ -119,6 +119,7 @@ class Event(db.Model):
 	sort_date = db.Column(db.Date, nullable=False)
 	dateline = db.Column(db.Text)
 	description = db.Column(db.Text)
+	no_answer = db.Column(db.Boolean)
 	
 	groups = db.relationship('Group', secondary=event__group, backref=db.backref('events', lazy='dynamic'))
 	

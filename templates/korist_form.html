@@ -59,11 +59,19 @@
 					</h3>
 					
 					{{ event.description|safe|nl2br }}
-					
+
+					{% if not event.no_answer %}
 					<hr />
 					
 					{{ m.form_print_field(osa_form.osa, class="radiolist") }}
 					{{ m.form_print_field(osa_form.comment, placeholder="Här kan du kommentera ett nej/kanske-svar.") }}
+
+					{% else %}
+					
+					<input type="hidden" name="{{ osa_form.osa.name }}" value="1" />
+					<input type="hidden" name="{{ osa_form.comment.name }}" value="" />
+					
+					{% endif %}
 				</div>
 				{% endwith %}
 			{% endfor %}

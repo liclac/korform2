@@ -45,7 +45,7 @@ class GroupModelView(MyModelView):
 	form_excluded_columns = ['members']
 
 class EventModelView(MyModelView):
-	column_list = ['groups', 'title', 'dateline']
+	column_list = ['groups', 'title', 'dateline', 'no_answer']
 	form_excluded_columns = ['osas']
 
 class OSAModelView(MyModelView):
