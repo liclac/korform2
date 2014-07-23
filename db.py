@@ -1,3 +1,4 @@
+import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import UserMixin, RoleMixin
 
@@ -88,6 +89,7 @@ class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
 	
+	created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	active = db.Column(db.Boolean, default=True)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 	group = db.relationship('Group', backref='members')
