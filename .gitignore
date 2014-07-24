@@ -10,3 +10,8 @@ bower_components
 *.swp
 *.sublime-workspace
 
+bin
+include
+lib
+local
+
