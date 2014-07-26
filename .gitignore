@@ -6,12 +6,12 @@ keys.py
 korform2.db
 
 bower_components
-
-*.swp
-*.sublime-workspace
-
+node_modules
 bin
 include
 lib
 local
+
+*.swp
+*.sublime-workspace
 
