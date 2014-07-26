@@ -62,7 +62,7 @@
 		{% endfor %}
 		{%- block content %}Oops, nothing here.{% endblock -%}
 	</div>
-	<div class="container">
+	<div class="container{% if fullwidth_container %}-fluid{% endif %}">
 		<footer id="footer" class="clearfix">
 			<hr />
 			<p class="small muted">
