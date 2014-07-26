@@ -110,6 +110,8 @@ class Korist(db.Model):
 	other_info = db.Column(db.Text)
 	
 	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
+
+	__mapper_args__ = { 'order_by': last_name }
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
