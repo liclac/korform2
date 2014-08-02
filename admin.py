@@ -30,6 +30,7 @@ class ProfileModelView(MyModelView):
 	column_list = ['users']
 
 class KoristModelView(MyModelView):
+	column_searchable_list = ['first_name', 'last_name']
 	column_list = ['group', 'first_name', 'last_name', 'phone', 'mobile', 'email']
 	form_excluded_columns = ['osas']
 	form_overrides = {
@@ -39,6 +40,7 @@ class KoristModelView(MyModelView):
 	}
 
 class GuardianModelView(MyModelView):
+	column_searchable_list = ['first_name', 'last_name']
 	column_exclude_list = ['profile', 'comment']
 
 class GroupModelView(MyModelView):
@@ -70,3 +72,4 @@ admin.add_view(KoristModelView(Korist, db.session, endpoint='korist'))
 admin.add_view(GroupModelView(Group, db.session, endpoint='group'))
 admin.add_view(EventModelView(Event, db.session, endpoint='event'))
 admin.add_view(OSAModelView(OSA, db.session, name='OSA', endpoint='osa'))
+
