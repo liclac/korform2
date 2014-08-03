@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% set tab = "matrikel" %}
 {% set tabsub = group.slug %}
+{% set fullwidth_container = True %}
 {% block content %}
 	<table class="table">
 		<thead>
@@ -14,18 +15,17 @@
 		</thead>
 		<tbody>
 			{% for korist in group.members %}
+			{% if korist.active %}
 			<tr>
 				<td>{{ korist.first_name }}</td>
 				<td>{{ korist.last_name }}</td>
-				<td>
-					{{ korist.address1|nl2br }}
-					{% if korist.address2 %}{{ korist.address2|nl2br }}{% endif %}
-				</td>
+				<td>{{ korist.address1|nl2br }} {{ korist.address2|nl2br }}</td>
 				<td>{{ korist.phone }}</td>
 				<td>{{ korist.mobile }}</td>
 				<td>{{ korist.email }}</td>
 				<td class="hidden-print"><a href="{{ url_for('korist', id=korist.id) }}">&rarr;</a></td>
 			</tr>
+			{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>

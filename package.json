@@ -1,0 +1,9 @@
+{
+  "name": "korform2",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "less": "^1.7.3"
+  }
+}

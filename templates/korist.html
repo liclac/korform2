@@ -4,13 +4,13 @@
 		{{ korist.first_name }} {{ korist.last_name }} <small>(<a href="{{ url_for('matrikel_group', group=korist.group.slug) }}">{{ korist.group.code }}</a>)</small>
 	</h1>
 	
-	{% if (korist.other_info and korist.profile == current_user.profile) or korist.allergies %}<hr />{% endif %}
-	{% if korist.other_info and korist.profile == current_user.profile %}
+	{% if (korist.other_info and korist.profile == current_user.profile) or korist.allergies or current_user.has_role('Admin') %}<hr />{% endif %}
+	{% if korist.other_info and ( korist.profile == current_user.profile or current_user.has_role('Admin') ) %}
 	{{ korist.other_info|nl2br }}
 	{% endif %}
 	
 	{% if korist.allergies %}
-	{% if korist.other_info and korist.profile == current_user.profile %}<br />{% endif %}
+	{% if korist.other_info and ( korist.profile == current_user.profile or current_user.has_role('Admin') ) %}<br />{% endif %}
 	<h5>Allergier</h5>
 	{{ korist.allergies|nl2br }}
 	{% endif %}
@@ -36,11 +36,13 @@
 		{% endif %}
 	</dl>
 	
-	{% if korist.profile == current_user.profile %}
+	{% if korist.profile == current_user.profile or current_user.has_role('Admin') %}
 	<hr />
-	
+
+	{% if current_user.has_role('Admin') %}<div class="adminonly">{% endif %}
 	<div class="list-group">
 	{% for osa in korist.osas %}
+	{% if not osa.event.no_answer %}
 		<div class="list-group-item list-group-item-{{ osa.osa_class_suffix() }} event">
 			<small class="pull-right"><strong>{{ osa.osa_str() }}</strong></small>
 			<h4>
@@ -55,8 +57,10 @@
 			<p><em>({{ osa.comment }})</em></p>
 			{% endif %}
 		</div>
+	{% endif %}
 	{% endfor %}
 	</div>
+	{% if current_user.has_role('Admin') %}</div>{% endif %}
 	
 	<hr />
 	
@@ -65,3 +69,4 @@
 	</div>
 	{% endif %}
 {% endblock %}
+

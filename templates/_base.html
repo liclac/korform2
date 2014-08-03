@@ -35,8 +35,10 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown{% if tab == "user" %} active{% endif %}">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ current_user.email }} <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Konto <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
+							<li class="disabled"><a>{{ current_user.email }}</a></li>
+							<li class="divider"></li>
 							{% if current_user.has_role('Admin') %}<li><a href="{{ url_for('admin.index') }}">Admin</a></li>{% endif %}
 							<li{% if tabsub == "settings" %} class="active"{% endif %}><a href="{{ url_for('settings') }}">Inställningar</a></li>
 							<li><a href="{{ url_for('security.logout') }}">Logga ut</a></li>
@@ -51,7 +53,7 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
+	<div class="container{% if fullwidth_container %}-fluid{% endif %}">
 		{% for category, message in get_flashed_messages(with_categories=true) %}
 		<div class="alert alert-{{ alert_class_suffix_for_message_category(category) }} alert-dismissible">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -59,6 +61,14 @@
 		</div>
 		{% endfor %}
 		{%- block content %}Oops, nothing here.{% endblock -%}
+	</div>
+	<div class="container{% if fullwidth_container %}-fluid{% endif %}">
+		<footer id="footer" class="clearfix">
+			<hr />
+			<p class="small muted centered">
+				Kontakta <a href="mailto:webmaster@musikidomkyrkan.se">webmaster@musikidomkyrkan.se</a> om några problem uppstår.
+			</p>
+		</footer>
 	</div>
 	
 	{% assets 'js_all' %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}

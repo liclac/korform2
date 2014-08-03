@@ -1,3 +1,4 @@
+import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import UserMixin, RoleMixin
 
@@ -88,6 +89,7 @@ class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
 	
+	created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	active = db.Column(db.Boolean, default=True)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 	group = db.relationship('Group', backref='members')
@@ -109,6 +111,8 @@ class Korist(db.Model):
 	
 	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
 	
+	__mapper_args__ = { 'order_by': last_name }
+	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
 
@@ -116,9 +120,10 @@ class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
 	title = db.Column(db.Text, nullable=False)
-	sort_date = db.Column(db.Date)
+	sort_date = db.Column(db.Date, nullable=False)
 	dateline = db.Column(db.Text)
 	description = db.Column(db.Text)
+	no_answer = db.Column(db.Boolean)
 	
 	groups = db.relationship('Group', secondary=event__group, backref=db.backref('events', lazy='dynamic'))
 	
