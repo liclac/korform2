@@ -5,9 +5,6 @@ from datetime import datetime
 from korform2 import *
 
 with app.test_request_context():
-	# Create database tables
-	db.create_all()
-
 	# Create default roles
 	admin_role = user_datastore.create_role(name="Admin", description="Allowed to perform administrative tasks")
 

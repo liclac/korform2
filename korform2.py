@@ -4,6 +4,7 @@ from flask import Flask, current_app, abort, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
 from flask.ext.security.utils import encrypt_password
 from flask.ext.mail import Mail
+from flask.ext.migrate import Migrate
 from jinja2 import evalcontextfilter, Markup, escape
 from db import *
 from assets import assets
@@ -19,6 +20,8 @@ mail = Mail(app)
 db.init_app(app)
 assets.init_app(app)
 admin.init_app(app)
+
+migrate = Migrate(app, db)
 
 
 
