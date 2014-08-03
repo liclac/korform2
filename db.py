@@ -87,9 +87,9 @@ class Guardian(db.Model):
 
 class Korist(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
-	
 	created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
+
 	active = db.Column(db.Boolean, default=True)
 	group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 	group = db.relationship('Group', backref='members')

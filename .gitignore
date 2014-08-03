@@ -1,16 +1,17 @@
 *.pyc
-static/.webassets-cache
-static/gen
+/static/.webassets-cache
+/static/gen
 
-keys.py
-korform2.db
+/keys.py
+/korform2.db
 
-bower_components
-node_modules
-bin
-include
-lib
-local
+/bower_components
+/node_modules
+/bin
+/include
+/lib
+/local
+/build
 
 *.swp
 *.sublime-workspace
