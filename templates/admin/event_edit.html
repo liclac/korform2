@@ -1,0 +1,34 @@
+{% extends 'admin/model/edit.html' %}
+{% block body %}
+	{{ super() }}
+	
+	{% if not model.no_answer %}
+	
+	<hr />
+	
+	<h2>OSAs</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Group</th>
+				<th>F.Name</th>
+				<th>L.Name</th>
+				<th>Comment</th>
+				<th>OSA</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for osa in model.osas|sort(attribute='korist.group')|sort(attribute='korist.first_name') %}
+			<tr class="{{ osa.osa_class_suffix() }}">
+				<td>{{ osa.korist.group.code }}</td>
+				<td>{{ osa.korist.first_name }}</td>
+				<td>{{ osa.korist.last_name }}</td>
+				<td>{{ osa.comment }}</td>
+				<td>{{ osa.osa_str() }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	
+	{% endif %}
+{% endblock %}
