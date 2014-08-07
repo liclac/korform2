@@ -13,7 +13,7 @@
 </thead>
 <tbody>
 	{% for korist in group.members %}
-	<tr>
+	<tr{% if not korist.active %} class="muted"{% endif %} >
 		<th>{{ korist.first_name }} {{ korist.last_name }}</th>
 		{% for osa in korist.osas|sort(attribute='event.sort_date') if not osa.event.no_answer %}
 		{#<td>{{ osa.event.sort_date.strftime('%d<br />%b')|safe }}</td>#}
