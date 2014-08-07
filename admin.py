@@ -32,6 +32,18 @@ class UserModelView(MyModelView):
 class ProfileModelView(MyModelView):
 	column_list = ['users']
 
+class EventModelView(MyModelView):
+	edit_template = 'admin/event_edit.html'
+	column_list = ['groups', 'title', 'dateline', 'no_answer']
+	form_excluded_columns = ['osas']
+
+class GroupModelView(MyModelView):
+	form_excluded_columns = ['members']
+
+class GuardianModelView(MyModelView):
+	column_searchable_list = ['first_name', 'last_name']
+	column_exclude_list = ['profile', 'comment']
+
 class KoristModelView(MyModelView):
 	column_searchable_list = ['first_name', 'last_name']
 	column_list = ['group', 'first_name', 'last_name', 'phone', 'mobile', 'email']
@@ -48,26 +60,14 @@ class KoristModelView(MyModelView):
 		})
 	]
 
-class GuardianModelView(MyModelView):
-	column_searchable_list = ['first_name', 'last_name']
-	column_exclude_list = ['profile', 'comment']
-
-class GroupModelView(MyModelView):
-	form_excluded_columns = ['members']
-
-class EventModelView(MyModelView):
-	edit_template = 'admin/event_edit.html'
-	column_list = ['groups', 'title', 'dateline', 'no_answer']
-	form_excluded_columns = ['osas']
-
 
 
 admin = Admin(index_view=MyAdminIndexView())
 admin.add_view(RoleModelView(Role, db.session, endpoint='role'))
 admin.add_view(UserModelView(User, db.session, endpoint='user'))
 admin.add_view(ProfileModelView(Profile, db.session, endpoint='profile'))
+admin.add_view(EventModelView(Event, db.session, endpoint='event'))
+admin.add_view(GroupModelView(Group, db.session, endpoint='group'))
 admin.add_view(GuardianModelView(Guardian, db.session, endpoint='guardian'))
 admin.add_view(KoristModelView(Korist, db.session, endpoint='korist'))
-admin.add_view(GroupModelView(Group, db.session, endpoint='group'))
-admin.add_view(EventModelView(Event, db.session, endpoint='event'))
 
