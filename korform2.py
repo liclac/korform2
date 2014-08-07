@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import re
+import operator
 from flask import Flask, current_app, abort, redirect, url_for, render_template
 from flask.ext.security import Security, SQLAlchemyUserDatastore, login_required, current_user
 from flask.ext.security.utils import encrypt_password
@@ -45,6 +46,10 @@ def nl2br(eval_ctx, value):
 	if eval_ctx.autoescape:
 		result = Markup(result)
 	return result
+
+@app.template_filter()
+def sort_multi(L,*operators):
+	return sorted(L, key=operator.attrgetter(*operators))
 
 
 
@@ -117,7 +122,12 @@ def korist_edit(id):
 	if korist.profile != current_user.profile and not current_user.has_role('Admin'):
 		abort(403)
 	
-	form = KoristForm(obj=korist) if not current_user.has_role('Admin') else KoristFormWithOSAs(obj=korist)
+	form = None
+	if not current_user.has_role('Admin'):
+		form = KoristForm(obj=Korist)
+	else:
+		form = KoristFormWithOSAs(obj=korist)
+	
 	if form.validate_on_submit():
 		form.populate_obj(korist)
 		db.session.add(korist)
@@ -144,7 +154,7 @@ def guardian_add():
 		db.session.add(guardian)
 		db.session.commit()
 		return redirect(url_for('guardians'))
-	return render_template("guardian_form.html", form=form)
+	return render_template("guardian_form.html", form=form, creating=True)
 
 @app.route('/kontaktpersoner/<id>/')
 @login_required

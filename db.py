@@ -142,14 +142,21 @@ class OSA(db.Model):
 	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 	event = db.relationship('Event', backref='osas')
 	korist_id = db.Column(db.Integer, db.ForeignKey('korist.id'))
-	korist = db.relationship('Korist', backref='osas')
+	korist = db.relationship('Korist', backref=db.backref('osas', lazy='dynamic'))
 	
 	# UI
 	osa_strs = ['NULL', 'Ja', 'Nej', 'Kanske']
 	osa_str = lambda self: self.osa_strs[self.osa]
+
+	osa_unicodes = ['NULL', u'\u2713', u'x', u'?']
+	osa_unicode = lambda self: self.osa_unicodes[self.osa]
 	
 	osa_class_suffixes = ['unknown', 'success', 'danger', 'warning']
 	osa_class_suffix = lambda self: self.osa_class_suffixes[self.osa]
+
+	osa_class_suffixes_bs2 = ['unknown', 'success', 'error', 'warning']
+	osa_class_suffix_bs2 = lambda self: self.osa_class_suffixes_bs2[self.osa]
 	
 	def __str__(self):
 		return "%s (%s)" % (self.event.title, self.osa_str())
+

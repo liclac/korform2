@@ -18,7 +18,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for osa in model.osas|sort(attribute='korist.group')|sort(attribute='korist.first_name') %}
+			{% for osa in model.osas|sort_multi('korist.group', 'korist.first_name') %}
 			<tr class="{{ osa.osa_class_suffix() }}">
 				<td>{{ osa.korist.group.code }}</td>
 				<td>{{ osa.korist.first_name }}</td>

@@ -1,0 +1,29 @@
+{% extends "admin/master.html" %}
+{% block body %}
+{% for group in groups %}
+<h2>{{ group.code }}</h2>
+<table class="table">
+<thead>
+	<tr>
+		<th>&nbsp;</th>
+		{% for event in group.events if not event.no_answer %}
+		<th>{{ event.sort_date.strftime('%d<br/>%b')|safe }}</th>
+		{% endfor %}
+	</th>
+</thead>
+<tbody>
+	{% for korist in group.members %}
+	<tr>
+		<th>{{ korist.first_name }} {{ korist.last_name }}</th>
+		{% for osa in korist.osas|sort(attribute='event.sort_date') if not osa.event.no_answer %}
+		{#<td>{{ osa.event.sort_date.strftime('%d<br />%b')|safe }}</td>#}
+		<th class="text-{{ osa.osa_class_suffix_bs2() }}">{{ osa.osa_unicode() }}</th>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+{% endfor %}
+</table>
+{% endblock %}
+
