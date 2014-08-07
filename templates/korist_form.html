@@ -49,7 +49,6 @@
 			</p>
 			
 			<div class="list-group">
-			{% if creating %}
 			{% for i in range(korist.group.events.count()) %}
 				{% with event = korist.group.events[i], osa_form = form.osas[i] %}
 				<div class="list-group-item event">
@@ -80,10 +79,8 @@
 		</div>
 		{% endif %}
 		
-		{% endif %}
 		<hr />
 		
-		{% if creating %}
 		<div class="form-group" id="confirmation-container">
 			<div class="col-sm-12">
 				<div class="checkbox">
@@ -94,7 +91,6 @@
 				</div>
 			</div>
 		</div>
-		{% endif %}
 
 		<input type="submit" class="btn btn-primary" value="Spara" />
 	</form>
@@ -105,16 +101,12 @@
 		var active = $('input[name=active]:checked').val()
 		$('#events-container').toggle(active == 1)
 		$('.event input[value=2]').prop('checked', active != 1)
-		{% if creating %}
 		$('#confirmation-container').toggle(active == 1)
 		$('#confirmation').prop('checked', active != 1).change()
-		{% endif %}
 	}).change()
 	
-	{% if creating %}
 	$('#confirmation').change(function() {
 		$('input[type=submit]').prop('disabled', !this.checked)
 	}).change()
-	{% endif %}
 	</script>
 {% endblock %}
