@@ -83,6 +83,7 @@
 		{% endif %}
 		<hr />
 		
+		{% if creating %}
 		<div class="form-group" id="confirmation-container">
 			<div class="col-sm-12">
 				<div class="checkbox">
@@ -93,9 +94,9 @@
 				</div>
 			</div>
 		</div>
-		{% if creating %}
-		<input type="submit" class="btn btn-primary" value="Spara" />
 		{% endif %}
+
+		<input type="submit" class="btn btn-primary" value="Spara" />
 	</form>
 {% endblock %}
 {% block extrascripts %}
