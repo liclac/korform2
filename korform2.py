@@ -122,12 +122,7 @@ def korist_edit(id):
 	if korist.profile != current_user.profile and not current_user.has_role('Admin'):
 		abort(403)
 	
-	form = None
-	if not current_user.has_role('Admin'):
-		form = KoristForm(obj=Korist)
-	else:
-		form = KoristFormWithOSAs(obj=korist)
-	
+	form = KoristForm(obj=korist)
 	if form.validate_on_submit():
 		form.populate_obj(korist)
 		db.session.add(korist)
