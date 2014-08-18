@@ -1,0 +1,6 @@
+{% extends 'admin/model/edit.html' %}
+{% block body %}
+	{{ super() }}
+	
+	<a class="btn" href="{{ url_for('profile.edit_view', id=model.profile.id) }}">Edit Profile</a>
+{% endblock %}

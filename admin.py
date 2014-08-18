@@ -26,6 +26,8 @@ class RoleModelView(MyModelView):
 	form_overrides = { 'description': fields.TextAreaField }
 
 class UserModelView(MyModelView):
+	edit_template = 'admin/user_edit.html'
+	column_searchable_list = ['email']
 	column_exclude_list = ['password']
 	form_excluded_columns = ['password']
 
