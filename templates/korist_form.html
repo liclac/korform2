@@ -51,7 +51,7 @@
 			<div class="list-group">
 			{% for i in range(korist.group.events.count()) %}
 				{% with event = korist.group.events[i], osa_form = form.osas[i] %}
-				<div class="list-group-item event">
+				<div class="list-group-item event" id="event-{{ event.id }}">
 					{{ osa_form.hidden_tag() }}
 					<h3>
 						{{ event.title }}<br />

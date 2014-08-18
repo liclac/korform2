@@ -128,7 +128,7 @@ class Event(db.Model):
 	groups = db.relationship('Group', secondary=event__group, backref=db.backref('events', lazy='dynamic'))
 	
 	# Sort by the Sort Date, not the pk (id)
-	__mapper_args__ = { 'order_by': sort_date }
+	__mapper_args__ = { 'order_by': (sort_date, id) }
 	
 	def __str__(self):
 		return "%s (%s)" % (self.title, self.dateline)
