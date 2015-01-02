@@ -142,7 +142,7 @@ class OSA(db.Model):
 	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 	event = db.relationship('Event', backref='osas')
 	korist_id = db.Column(db.Integer, db.ForeignKey('korist.id'))
-	korist = db.relationship('Korist', backref=db.backref('osas', lazy='dynamic'))
+	korist = db.relationship('Korist', backref=db.backref('osas', lazy='dynamic', cascade="delete"))
 	
 	# UI
 	osa_strs = ['NULL', 'Ja', 'Nej', 'Kanske']
