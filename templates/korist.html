@@ -38,7 +38,7 @@
 	
 	{% if korist.profile == current_user.profile or current_user.has_role('Admin') %}
 	<hr />
-
+	
 	{% if current_user.has_role('Admin') %}<div class="adminonly">{% endif %}
 	<div class="list-group">
 	{% for osa in korist.osas %}
