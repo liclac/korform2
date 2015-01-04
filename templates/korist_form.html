@@ -97,16 +97,22 @@
 {% endblock %}
 {% block extrascripts %}
 	<script type="text/javascript">
-	$('#active').change(function() {
-		var active = $('input[name=active]:checked').val()
-		$('#events-container').toggle(active == 1)
-		$('.event input[value=2]').prop('checked', active != 1)
-		$('#confirmation-container').toggle(active == 1)
-		$('#confirmation').prop('checked', active != 1).change()
-	}).change()
-	
 	$('#confirmation').change(function() {
-		$('input[type=submit]').prop('disabled', !this.checked)
-	}).change()
+		$('input[type=submit]').prop('disabled', $('input[name=active]:checked').val() === "1" && !this.checked);
+	}).change();
+	
+	$('#active').change(function() {
+		var active = $('input[name=active]:checked').val() == "1";
+		$('#events-container').toggle(active);
+		$('#confirmation-container').toggle(active);
+		$('#confirmation').change();
+	}).change();
+	
+	$('form').on('submit', function() {
+		if($('input[name=active]:checked').val() != "1") {
+			console.log("INACTIVE");
+			$('.event input[value=2]').prop('checked', active != 1);
+		}
+	});
 	</script>
 {% endblock %}
