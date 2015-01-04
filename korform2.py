@@ -130,6 +130,29 @@ def korist_edit(id):
 		return redirect(url_for('korist', id=korist.id))
 	return render_template("korist_form.html", korist=korist, form=form)
 
+@app.route('/korister/<id>/osas/', methods=['GET', 'POST'])
+@login_required
+def korist_osas(id):
+	korist = Korist.query.get_or_404(id)
+	if korist.profile != current_user.profile and not current_user.has_role('Admin'):
+		abort(403)
+	if korist.osas.count() > 0:
+		return redirect(url_for('korist_edit', id=korist.id))
+	
+	form = OSASForm(obj=korist)
+	if form.validate_on_submit():
+		events = korist.group.events.all()
+		for i in xrange(len(events)):
+			osa_form = form.osas[i]
+			osa = OSA(korist=korist, event=events[i], comment=osa_form.comment.data, osa=osa_form.osa.data)
+			db.session.add(osa)
+			db.session.commit()
+		return redirect(url_for('korist', id=korist.id))
+	else:
+		for event in korist.group.events:
+			form.osas.append_entry(OSA(korist=korist, event=event))
+	return render_template("korist_osas.html", korist=korist, form=form)
+
 @app.route('/kontaktpersoner/')
 @login_required
 def guardians():

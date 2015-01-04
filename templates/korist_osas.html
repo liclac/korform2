@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+{% set tab = "korists" %}
+{% import "_macros.html" as m %}
+{% block content %}
+	<form class="form-horizontal" action="." method="POST">
+		{{ form.hidden_tag() }}
+		<p>
+			Dina svar i terminsöversikten kan endast läsas av dig själv, körens dirigenter och databasens administratör. Du kan inte ändra i ett inskickat formulär! Ändringar meddelas per e-post till dirigenterna.
+		</p>
+		
+		<div class="list-group">
+		{% for i in range(korist.group.events.count()) %}
+			{% with event = korist.group.events[i], osa_form = form.osas[i] %}
+			<div class="list-group-item event" id="event-{{ event.id }}">
+				{{ osa_form.hidden_tag() }}
+				<h3>
+					{{ event.title }}<br />
+					<small>{{ event.dateline }}</small>
+				</h3>
+				
+				{{ event.description|safe|nl2br }}
+
+				{% if not event.no_answer %}
+				<hr />
+				
+				{{ m.form_print_field(osa_form.osa, class="radiolist") }}
+				{{ m.form_print_field(osa_form.comment, placeholder="Här kan du kommentera ett nej/kanske-svar.") }}
+
+				{% else %}
+				
+				<input type="hidden" name="{{ osa_form.osa.name }}" value="1" />
+				<input type="hidden" name="{{ osa_form.comment.name }}" value="" />
+				
+				{% endif %}
+			</div>
+			{% endwith %}
+		{% endfor %}
+		</div>
+		
+		<input type="submit" class="btn btn-primary" value="Spara" />
+	</form>
+{% endblock %}
