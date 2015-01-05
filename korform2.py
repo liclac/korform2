@@ -99,7 +99,7 @@ def korist_add():
 @login_required
 def korist_add2(group):
 	group = Group.query.filter_by(slug=group).first_or_404()
-	korist = Korist(profile=current_user.profile, group=group)
+	korist = Korist(profile=current_user.profile, group=group, active=True)
 	korist.osas = [ OSA(korist=korist, event=event) for event in korist.group.events ]
 	form = KoristFormWithOSAs(obj=korist)
 	if form.validate_on_submit():
@@ -113,6 +113,8 @@ def korist_add2(group):
 @login_required
 def korist(id):
 	korist = Korist.query.get_or_404(id)
+	if korist.osas.count() == 0:
+		return redirect(url_for('korist_osas', id=korist.id))
 	return render_template("korist.html", korist=korist)
 
 @app.route('/korister/<id>/edit/', methods=['GET', 'POST'])
@@ -121,6 +123,8 @@ def korist_edit(id):
 	korist = Korist.query.get_or_404(id)
 	if korist.profile != current_user.profile and not current_user.has_role('Admin'):
 		abort(403)
+	if korist.osas.count() == 0:
+		return redirect(url_for('korist_osas', id=korist.id))
 	
 	form = KoristForm(obj=korist)
 	if form.validate_on_submit():
@@ -146,7 +150,12 @@ def korist_osas(id):
 			osa_form = form.osas[i]
 			osa = OSA(korist=korist, event=events[i], comment=osa_form.comment.data, osa=osa_form.osa.data)
 			db.session.add(osa)
-			db.session.commit()
+		
+		print "Active: %s" % form.active.data
+		korist.active = form.active.data
+		db.session.add(korist)
+		
+		db.session.commit()
 		return redirect(url_for('korist', id=korist.id))
 	else:
 		for event in korist.group.events:

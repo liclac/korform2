@@ -3,7 +3,7 @@ from flask.ext.wtf import Form
 from flask.ext.security import current_user
 from flask.ext.security.utils import verify_password
 from wtforms_alchemy import model_form_factory, ModelFieldList
-from wtforms import fields, validators, ValidationError
+from wtforms import fields, validators, widgets, ValidationError
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from db import *
 
@@ -38,16 +38,17 @@ class KoristForm(ModelForm):
 		model = Korist
 		exclude = ['active']
 	
-	birthday = fields.TextField(validators=[validators.required()])
+	birthday = fields.DateField(validators=[validators.required()], widget=widgets.TextInput)
 
 class KoristFormWithOSAs(KoristForm):
 	class Meta:
 		exclude = []
 	
-	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014'), (0, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.required()], coerce=bool)
+	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014'), (0, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.InputRequired()], coerce=int, default=1)
 	osas = fields.FieldList(fields.FormField(OSAForm))
 
 class OSASForm(Form):
+	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2014'), (0, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.InputRequired()], coerce=int, default=1)
 	osas = fields.FieldList(fields.FormField(OSAForm))
 
 class GuardianForm(ModelForm):
