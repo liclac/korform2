@@ -38,7 +38,7 @@ class KoristForm(ModelForm):
 		model = Korist
 		exclude = ['active']
 	
-	birthday = fields.DateField(validators=[validators.required()], widget=widgets.TextInput)
+	birthday = fields.DateField(validators=[validators.required()], widget=widgets.TextInput())
 
 class KoristFormWithOSAs(KoristForm):
 	class Meta:
