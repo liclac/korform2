@@ -104,6 +104,7 @@ def korist_add2(group):
 	form = KoristFormWithOSAs(obj=korist)
 	if form.validate_on_submit():
 		form.populate_obj(korist)
+		korist.active = bool(form.active.data)
 		db.session.add(korist)
 		db.session.commit()
 		return redirect(url_for('korists'))
@@ -151,8 +152,7 @@ def korist_osas(id):
 			osa = OSA(korist=korist, event=events[i], comment=osa_form.comment.data, osa=osa_form.osa.data)
 			db.session.add(osa)
 		
-		print "Active: %s" % form.active.data
-		korist.active = form.active.data
+		korist.active = bool(form.active.data)
 		db.session.add(korist)
 		
 		db.session.commit()
