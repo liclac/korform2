@@ -22,7 +22,7 @@
 				<td>{{ korist.last_name }}</td>
 				<td>{{ korist.address1|nl2br }} {{ korist.address2|nl2br }}</td>
 				<td>
-					{{ korist.phone }}
+					{{ korist.phone|default('') }}
 					
 					{% for guardian in korist.public_guardians_with('phone') %}
 						{% if korist.phone or not loop.first %}<br />{% endif %}
@@ -32,7 +32,7 @@
 					{% endfor %}
 				</td>
 				<td>
-					{{ korist.mobile }}
+					{{ korist.mobile|default('') }}
 					
 					{% for guardian in korist.public_guardians_with('phone2') %}
 						{% if korist.mobile or not loop.first %}<br />{% endif %}
@@ -42,7 +42,7 @@
 					{% endfor %}
 				</td>
 				<td>
-					{{ korist.email }}
+					{{ korist.email|default('') }}
 					
 					{% for guardian in korist.public_guardians_with('email') %}
 						{% if korist.email or not loop.first %}<br />{% endif %}
