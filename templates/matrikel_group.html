@@ -27,7 +27,7 @@
 					{% for guardian in korist.public_guardians_with('phone') %}
 						{% if korist.phone or not loop.first %}<br />{% endif %}
 						<small class="text-muted">
-							<strong>{{ guardian.initials() }}</strong>&nbsp;{{ guardian.email }}
+							<strong>{{ guardian.initials() }}</strong>&nbsp;{{ guardian.phone }}
 						</small>
 					{% endfor %}
 				</td>
@@ -37,7 +37,7 @@
 					{% for guardian in korist.public_guardians_with('phone2') %}
 						{% if korist.mobile or not loop.first %}<br />{% endif %}
 						<small class="text-muted">
-							<strong>{{ guardian.initials() }}</strong>&nbsp;{{ guardian.email }}
+							<strong>{{ guardian.initials() }}</strong>&nbsp;{{ guardian.mobile }}
 						</small>
 					{% endfor %}
 				</td>
