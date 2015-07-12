@@ -16,7 +16,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url_for('index') }}">Körernas Databas</a>
+				<a class="navbar-brand" href="{{ url_for('index') }}">Körernas databas</a>
 			</div>
 			
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
@@ -30,7 +30,7 @@
 							{% endfor %}
 						</ul>
 					</li>
-					<li{% if tab == "korists" %} class="active"{% endif %}><a href="{{ url_for('korists') }}">Mina Korister{% if current_user.profile.children.count() == 0 %}&nbsp;<abbr title="Du måste lägga till minst en korist!"><i class="glyphicon glyphicon-exclamation-sign text-danger"></i></abbr>{% endif %}</a></li>
+					<li{% if tab == "korists" %} class="active"{% endif %}><a href="{{ url_for('korists') }}">Mina korister{% if current_user.profile.children.count() == 0 %}&nbsp;<abbr title="Du måste lägga till minst en korist!"><i class="glyphicon glyphicon-exclamation-sign text-danger"></i></abbr>{% endif %}</a></li>
 					<li{% if tab == "guardians" %} class="active"{% endif %}><a href="{{ url_for('guardians') }}">Vårdnadshavare/Närmast anhörig{% if current_user.profile.guardians.count() == 0 %}&nbsp;<abbr title="Du måste lägga till kontaktuppgifter här!"><i class="glyphicon glyphicon-exclamation-sign text-danger"></i></abbr>{% endif %}</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
