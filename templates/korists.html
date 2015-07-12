@@ -4,7 +4,7 @@
 	<div class="list-group">
 		{% for korist in korists %}
 		<a class="list-group-item{% if not korist.active %} disabled{% endif %}"{% if korist.active %} href="{% if korist.osas.count() > 0 %}{{ url_for('korist', id=korist.id) }}{% else %}{{ url_for('korist_osas', id=korist.id) }}{% endif %}"{% endif %}>
-			{% if korist.osas.count() == 0 %}<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;{% endif %}<strong>{{ korist.first_name }} {{ korist.last_name }}</strong> {% if korist.osas.count() == 0 %}<small class="text-muted"> Svar fattas för vt15!</small>{% endif %} <span class="pull-right"><span class="hidden-xs">{{ korist.group.code }}</span></span></span>
+			{% if korist.osas.count() == 0 %}<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;{% endif %}<strong>{{ korist.first_name }} {{ korist.last_name }}</strong> {% if korist.osas.count() == 0 %}<small class="text-muted"> Svar fattas för ht15!</small>{% endif %} <span class="pull-right"><span class="hidden-xs">{{ korist.group.code }}</span></span></span>
 		</a>
 		{% endfor %}
 		<a class="list-group-item" href="{{ url_for('korist_add') }}">

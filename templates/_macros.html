@@ -13,7 +13,7 @@
 {% macro hform_print_fields(fields, helptext='') %}
 		<div class="col-sm-10">
 			{{ form_print_fields(fields, **kwargs) }}
-			{% if helptext %}<p class="help-block">{{ helptext }}</p>{% endif %}
+			{% if helptext %}<p class="help-block">{{ helptext|safe }}</p>{% endif %}
 		</div>
 {% endmacro %}
 {% macro hform_group(label, field, helptext='') %}{{ hform_group_multi(label, [field], helptext, **kwargs) }}{% endmacro %}
