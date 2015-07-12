@@ -89,8 +89,8 @@ class Guardian(db.Model):
 	
 	def initials(self):
 		r = re.compile(r' |-')
-		fp = [p[0] for p in r.split(self.first_name) if p else '']
-		lp = [p[0] for p in r.split(self.last_name) if p else '']
+		fp = [p[0] for p in r.split(self.first_name) if p]
+		lp = [p[0] for p in r.split(self.last_name) if p]
 		return u''.join(fp) + u'.' + u''.join(lp) + u'.'
 	
 	def __str__(self):
