@@ -53,11 +53,6 @@ event__group = db.Table('event__group',
 	db.Column('group_id', db.Integer, db.ForeignKey('group.id'))
 )
 
-korist__guardian = db.Table('korist__guardian',
-	db.Column('korist_id', db.Integer, db.ForeignKey('korist.id')),
-	db.Column('guardian_id', db.Integer, db.ForeignKey('guardian.id')),
-)
-
 class Group(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
@@ -119,8 +114,6 @@ class Korist(db.Model):
 	
 	allergies = db.Column(db.Text)
 	other_info = db.Column(db.Text)
-	
-	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
 	
 	__mapper_args__ = { 'order_by': [last_name, first_name] }
 	
