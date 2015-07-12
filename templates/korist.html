@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% set tab = "korists" %}
 {% block content %}
 	<h1>
 		{{ korist.first_name }} {{ korist.last_name }} <small>(<a href="{{ url_for('matrikel_group', group=korist.group.slug) }}">{{ korist.group.code }}</a>)</small>
