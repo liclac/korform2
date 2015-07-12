@@ -8,8 +8,8 @@
 			<th>Förnamn</th>
 			<th>Efternamn</th>
 			<th>Adress</th>
-			<th>Telefon Korist</th>
-			<th>Telefon Vuxen</th>
+			<th>Telefonnummer</th>
+			<th>Mobilnummer</th>
 			<th>E-postadress</th>
 			<th class="hidden-print">Mer</th>
 		</thead>
@@ -20,9 +20,9 @@
 				<td>{{ korist.first_name }}</td>
 				<td>{{ korist.last_name }}</td>
 				<td>{{ korist.address1|nl2br }} {{ korist.address2|nl2br }}</td>
-				<td>{{ korist.phone1 }}</td>
-				<td>{{ korist.phone2 }}</td>
-				<td>{{ korist.email1 }}</td>
+				<td>{{ korist.phone }}</td>
+				<td>{{ korist.mobile }}</td>
+				<td>{{ korist.email }}</td>
 				<td class="hidden-print"><a href="{{ url_for('korist', id=korist.id) }}">&rarr;</a></td>
 			</tr>
 			{% endif %}

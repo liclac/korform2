@@ -100,9 +100,9 @@ class Korist(db.Model):
 	address1 = db.Column(db.Text, nullable=False)
 	address2 = db.Column(db.Text)
 	
-	phone1 = db.Column(db.String(15), nullable=False)
-	phone2 = db.Column(db.String(15), nullable=False)
-	email1 = db.Column(db.String(255), nullable=False)
+	phone = db.Column(db.String(15), nullable=False)
+	mobile = db.Column(db.String(15))
+	email = db.Column(db.String(255))
 	
 	birthday = db.Column(db.Date, nullable=False)
 	
@@ -120,7 +120,7 @@ class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
 	title = db.Column(db.Text, nullable=False)
-	sort_date = db.Column(db.Date, nullable=False)
+	sort_date = db.Column(db.Date)
 	dateline = db.Column(db.Text)
 	description = db.Column(db.Text)
 	no_answer = db.Column(db.Boolean)
