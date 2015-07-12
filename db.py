@@ -120,7 +120,7 @@ class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
 	title = db.Column(db.Text, nullable=False)
-	sort_date = db.Column(db.Date)
+	sort_date = db.Column(db.Date, nullable=False)
 	dateline = db.Column(db.Text)
 	description = db.Column(db.Text)
 	no_answer = db.Column(db.Boolean)
