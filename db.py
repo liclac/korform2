@@ -38,9 +38,9 @@ class User(db.Model, UserMixin):
 class Profile(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	
-	users = db.relationship('User', backref='profile', lazy='joined')
-	children = db.relationship('Korist', backref='profile', lazy='dynamic')
-	guardians = db.relationship('Guardian', backref='profile', lazy='dynamic')
+	users = db.relationship('User', backref='profile', lazy='joined', cascade='delete, delete-orphan')
+	children = db.relationship('Korist', backref='profile', lazy='dynamic', cascade='delete, delete-orphan')
+	guardians = db.relationship('Guardian', backref='profile', lazy='dynamic', cascade='delete, delete-orphan')
 	
 	def __str__(self):
 		return 'Profile for %s' % (", ".join(u.email for u in self.users))
