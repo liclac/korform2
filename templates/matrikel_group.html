@@ -21,15 +21,45 @@
 				<td>{{ korist.first_name }}</td>
 				<td>{{ korist.last_name }}</td>
 				<td>{{ korist.address1|nl2br }} {{ korist.address2|nl2br }}</td>
-				<td>{{ korist.phone }}</td>
-				<td>{{ korist.mobile }}</td>
-				<td>{{ korist.email }}</td>
 				<td>
-					{% for guardian in korist.profile.guardians.order_by('first_name') %}
-					{% if not guardian.private %}
-					<a href="{{ url_for('guardian', id=guardian.id) }}">{{ guardian.first_name }} {{ guardian.last_name }}</a>
-					{% if not loop.last %}<br />{% endif %}
-					{% endif %}
+					{{ korist.phone }}
+					
+					{% for guardian in korist.public_guardians_with('phone') %}
+						{% if korist.phone %}<br />{% endif %}
+						<small class="text-muted">
+							<strong>{{ guardian.first_name.0 }}.{{ guardian.last_name.0 }}.</strong>
+							&nbsp;{{ guardian.phone }}
+						</small>
+					{% endfor %}
+				</td>
+				<td>
+					{{ korist.mobile }}
+					
+					{% for guardian in korist.public_guardians_with('phone2') %}
+						{% if korist.mobile %}<br />{% endif %}
+						<small class="text-muted">
+							<strong>{{ guardian.first_name.0 }}.{{ guardian.last_name.0 }}.</strong>
+							&nbsp;{{ guardian.phone2 }}
+						</small>
+					{% endfor %}
+				</td>
+				<td>
+					{{ korist.email }}
+					
+					{% for guardian in korist.public_guardians_with('email') %}
+						{% if korist.email %}<br />{% endif %}
+						<small class="text-muted">
+							<strong>{{ guardian.first_name.0 }}.{{ guardian.last_name.0 }}.</strong>
+							&nbsp;{{ guardian.email }}
+						</small>
+					{% endfor %}
+				</td>
+				<td>
+					{% for guardian in korist.public_guardians_with('id') %}
+						{% if not guardian.private %}
+							{% if not loop.first %}<br />{% endif %}
+							<a href="{{ url_for('guardian', id=guardian.id) }}">{{ guardian.first_name }} {{ guardian.last_name }}</a>
+						{% endif %}
 					{% endfor %}
 				</td>
 				<td class="hidden-print"><a href="{{ url_for('korist', id=korist.id) }}">&rarr;</a></td>

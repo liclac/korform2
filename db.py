@@ -78,10 +78,13 @@ class Guardian(db.Model):
 	first_name = db.Column(db.String(100), nullable=False)
 	last_name = db.Column(db.String(100), nullable=False)
 	phone = db.Column(db.String(15))
+	phone2 = db.Column(db.String(15))
 	email = db.Column(db.String(255))
 	
 	comment = db.Column(db.Text)
 	private = db.Column(db.Boolean, nullable=False, default=False)
+	
+	__mapper_args__ = { 'order_by': [last_name, first_name] }
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
@@ -112,7 +115,10 @@ class Korist(db.Model):
 	
 	guardians = db.relationship('Guardian', secondary=korist__guardian, backref=db.backref('children', lazy='dynamic'))
 	
-	__mapper_args__ = { 'order_by': last_name }
+	__mapper_args__ = { 'order_by': [last_name, first_name] }
+	
+	def public_guardians_with(self, attr):
+		return [g for g in self.profile.guardians if not g.private and getattr(g, attr)]
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
