@@ -111,7 +111,7 @@ class Korist(db.Model):
 	address1 = db.Column(db.Text, nullable=False)
 	address2 = db.Column(db.Text)
 	
-	phone = db.Column(db.String(15), nullable=False)
+	phone = db.Column(db.String(15))
 	mobile = db.Column(db.String(15))
 	email = db.Column(db.String(255))
 	
