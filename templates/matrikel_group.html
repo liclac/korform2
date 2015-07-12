@@ -11,6 +11,7 @@
 			<th>Telefonnummer</th>
 			<th>Mobilnummer</th>
 			<th>E-postadress</th>
+			<th>Anhöriga</th>
 			<th class="hidden-print">Mer</th>
 		</thead>
 		<tbody>
@@ -23,6 +24,14 @@
 				<td>{{ korist.phone }}</td>
 				<td>{{ korist.mobile }}</td>
 				<td>{{ korist.email }}</td>
+				<td>
+					{% for guardian in korist.profile.guardians.order_by('first_name') %}
+					{% if not guardian.private %}
+					<a href="{{ url_for('guardian', id=guardian.id) }}">{{ guardian.first_name }} {{ guardian.last_name }}</a>
+					{% if not loop.last %}<br />{% endif %}
+					{% endif %}
+					{% endfor %}
+				</td>
 				<td class="hidden-print"><a href="{{ url_for('korist', id=korist.id) }}">&rarr;</a></td>
 			</tr>
 			{% endif %}

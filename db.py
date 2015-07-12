@@ -81,6 +81,7 @@ class Guardian(db.Model):
 	email = db.Column(db.String(255))
 	
 	comment = db.Column(db.Text)
+	private = db.Column(db.Boolean, nullable=False, default=False)
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
