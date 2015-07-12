@@ -144,8 +144,8 @@ def korist_osas(id):
 	if korist.osas.count() > 0:
 		return redirect(url_for('korist_edit', id=korist.id))
 	
-	# form = OSASForm(obj=korist)
-	form = KoristFormWithOSAs(obj=korist)
+	form = OSASForm(obj=korist)
+	# form = KoristFormWithOSAs(obj=korist)
 	if form.validate_on_submit():
 		events = korist.group.events.all()
 		for i in xrange(len(events)):
@@ -153,8 +153,8 @@ def korist_osas(id):
 			osa = OSA(korist=korist, event=events[i], comment=osa_form.comment.data, osa=osa_form.osa.data)
 			db.session.add(osa)
 		
-		# korist.active = bool(form.active.data)
-		korist.populate_obj(korist)
+		korist.active = bool(form.active.data)
+		# form.populate_obj(korist)
 		db.session.add(korist)
 		
 		db.session.commit()
@@ -162,8 +162,8 @@ def korist_osas(id):
 	else:
 		for event in korist.group.events:
 			form.osas.append_entry(OSA(korist=korist, event=event))
-	# return render_template("korist_osas.html", korist=korist, form=form)
-	return render_template("korist_form.html", korist=korist, form=form)
+	return render_template("korist_osas.html", korist=korist, form=form)
+	# return render_template("korist_form.html", korist=korist, form=form)
 
 @app.route('/kontaktpersoner/')
 @login_required
