@@ -22,17 +22,15 @@
 		<dt>Adress{% if korist.address2 %} 1{% endif %}</dt>
 		<dd>{{ korist.address1|nl2br }}</dd>
 		
-		<dt>Telefonnummer</dt>
-		<dd>{{ korist.phone }}</dd>
+		<dt>Telefon Korist</dt>
+		<dd>{{ korist.phone1 }}</dd>
 		
-		{% if korist.mobile %}
-		<dt>Mobilnummer</dt>
-		<dd>{{ korist.mobile }}</dd>
-		{% endif %}
+		<dt>Telefon Förälder</dt>
+		<dd>{{ korist.phone2 }}</dd>
 		
-		{% if korist.email %}
+		{% if korist.email1 %}
 		<dt>E-postadress</dt>
-		<dd>{{ korist.email }}</dd>
+		<dd>{{ korist.email1 }}</dd>
 		{% endif %}
 	</dl>
 	

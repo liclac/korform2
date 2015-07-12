@@ -48,7 +48,7 @@ class GuardianModelView(MyModelView):
 
 class KoristModelView(MyModelView):
 	column_searchable_list = ['first_name', 'last_name']
-	column_list = ['group', 'first_name', 'last_name', 'phone', 'mobile', 'email', 'birthday']
+	column_list = ['group', 'first_name', 'last_name', 'phone1', 'phone2', 'email1', 'birthday']
 	form_overrides = {
 		'address_l1': fields.TextField,
 		'address_l2': fields.TextField,
