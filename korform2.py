@@ -145,7 +145,7 @@ def korist_osas(id):
 		return redirect(url_for('korist_edit', id=korist.id))
 	
 	# form = OSASForm(obj=korist)
-	form = KoristForm(obj=korist)
+	form = KoristFormWithOSAs(obj=korist)
 	if form.validate_on_submit():
 		events = korist.group.events.all()
 		for i in xrange(len(events)):
