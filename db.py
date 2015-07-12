@@ -1,3 +1,4 @@
+import re
 import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.security import UserMixin, RoleMixin
@@ -85,6 +86,12 @@ class Guardian(db.Model):
 	private = db.Column(db.Boolean, nullable=False, default=False)
 	
 	__mapper_args__ = { 'order_by': [last_name, first_name] }
+	
+	def initials(self):
+		r = re.compile(r' |-')
+		fp = [p[0] for p in r.split(self.first_name)]
+		lp = [p[0] for p in r.split(self.last_name)]
+		return u''.join(fp) + u'.' + u''.join(lp) + u'.'
 	
 	def __str__(self):
 		return "%s %s" % (self.first_name, self.last_name)
