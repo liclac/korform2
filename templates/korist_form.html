@@ -81,7 +81,7 @@
 		
 		<hr />
 		
-		<div class="form-group" id="confirmation-container">
+		<!--<div class="form-group" id="confirmation-container">
 			<div class="col-sm-12">
 				<div class="checkbox">
 					<label>
@@ -91,16 +91,16 @@
 					</label>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<input type="submit" class="btn btn-primary" value="Spara" />
 	</form>
 {% endblock %}
 {% block extrascripts %}
 	<script type="text/javascript">
-	$('#confirmation').change(function() {
+	/*$('#confirmation').change(function() {
 		$('input[type=submit]').prop('disabled', $('input[name=active]:checked').val() === "1" && !this.checked);
-	}).change();
+	}).change();*/
 	
 	$('#active').change(function() {
 		var active = $('input[name=active]:checked').val() == "1";

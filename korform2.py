@@ -100,14 +100,14 @@ def korist_add():
 def korist_add2(group):
 	group = Group.query.filter_by(slug=group).first_or_404()
 	korist = Korist(profile=current_user.profile, group=group, active=True)
-	korist.osas = [ OSA(korist=korist, event=event) for event in korist.group.events ]
-	form = KoristFormWithOSAs(obj=korist)
+	# korist.osas = [ OSA(korist=korist, event=event) for event in korist.group.events ]
+	form = KoristFormWithActive(obj=korist)
 	if form.validate_on_submit():
 		form.populate_obj(korist)
 		korist.active = bool(form.active.data)
 		db.session.add(korist)
 		db.session.commit()
-		return redirect(url_for('korists'))
+		return redirect(url_for('korist_osas' if korist.active else 'korist', id=korist.id))
 	return render_template("korist_form.html", korist=korist, form=form)
 
 @app.route('/korister/<id>/')

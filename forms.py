@@ -40,12 +40,12 @@ class KoristForm(ModelForm):
 	
 	birthday = fields.DateField(validators=[validators.required()], widget=widgets.TextInput())
 
-class KoristFormWithOSAs(KoristForm):
+class KoristFormWithActive(KoristForm):
 	class Meta:
 		exclude = []
 	
 	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2015'), (0, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.InputRequired()], coerce=int, default=1)
-	osas = fields.FieldList(fields.FormField(OSAForm))
+	# osas = fields.FieldList(fields.FormField(OSAForm))
 
 class OSASForm(Form):
 	active = fields.RadioField(choices=[(1, u'Ja, jag är med i Domkyrkans Goss- och Flickkörer/Ungdomskören höstterminen 2015'), (0, u'Nej, jag är inte med i höst, jag lämnar min plats till någon annan')], validators=[validators.InputRequired()], coerce=int, default=1)
